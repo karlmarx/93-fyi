@@ -2,15 +2,20 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const url = request.nextUrl;
   const hostname = request.headers.get('host');
+  const path = request.nextUrl.pathname;
 
-  // If the hostname is ta.93.fyi, redirect to trickadvisor.cc
-  if (hostname === 'ta.93.fyi') {
-    return NextResponse.redirect('https://trickadvisor.cc', 301);
+  const redirects: Record<string, string> = {
+    'ta.93.fyi':    'https://trickadvisor.cc',
+    'nfit.93.fyi':  'https://nwbfit.vercel.app',
+    'nyoga.93.fyi': 'https://nwb-yoga.vercel.app',
+  };
+
+  if (hostname && redirects[hostname]) {
+    const target = redirects[hostname] + path;
+    return NextResponse.redirect(target, 301);
   }
 
-  // Handle other subdomains if needed in the future
   return NextResponse.next();
 }
 
