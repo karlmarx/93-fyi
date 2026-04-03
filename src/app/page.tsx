@@ -1,45 +1,76 @@
-import Link from 'next/link';
+const links = [
+  { label: 'Status',          href: 'https://status.93.fyi',          description: 'System uptime',               icon: '🟢' },
+  { label: 'Now',             href: 'https://now.93.fyi',             description: "What I'm up to",              icon: '📍' },
+  { label: 'Seedbox',         href: 'https://seed.93.fyi',            description: 'Torrent dashboard',           icon: '🌊' },
+  { label: 'Dashboard',       href: 'https://me.93.fyi',              description: 'Private admin',               icon: '⚡' },
+  { label: 'Todo',            href: 'https://todo.93.fyi',            description: 'Global task list',            icon: '✅' },
+  { label: 'GitHub',          href: 'https://github.com/karlmarx',    description: 'Development and projects',    icon: '🐙' },
+  { label: 'GitLab',          href: 'https://gitlab.com/karlmarx2',  description: 'Version control repository',  icon: '🦊' },
+  { label: 'TrickAdvisor',    href: 'https://ta.93.fyi',              description: 'Redirect to trickadvisor.cc', icon: '🃏' },
+  { label: 'NWB Workout',     href: 'https://nfit.93.fyi',            description: 'MRI-adjusted workout protocol', icon: '💪' },
+];
 
 export default function Home() {
-  const links = [
-    { label: 'GitHub', href: 'https://github.com/karlmarx', description: 'Development and projects' },
-    { label: 'GitLab', href: 'https://gitlab.com/karlmarx2', description: 'Version control repository' },
-    { label: 'TrickAdvisor', href: 'https://ta.93.fyi', description: 'Redirect to trickadvisor.cc' },
-    { label: 'NWB Workout Plan', href: 'https://nfit.93.fyi', description: 'MRI-adjusted workout protocol' },
-  ];
-
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black flex flex-col items-center justify-center p-8 font-mono">
-      <main className="max-w-2xl w-full">
-        <header className="mb-12">
-          <h1 className="text-4xl font-bold tracking-tighter mb-4">93.fyi</h1>
-          <p className="text-gray-400 text-lg leading-relaxed">
-            A minimalist domain serving as a hub for various projects and personal shortcuts. 
-            The number was randomly selected for its brevity and cost-efficiency.
+    <div className="bg-scene min-h-screen text-white flex flex-col">
+      {/* Content sits above the ::before/::after pseudo-elements */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+
+        {/* Top nav — subtle login link */}
+        <nav className="flex justify-end px-6 pt-6">
+          <a
+            href="https://me.93.fyi"
+            className="text-zinc-600 hover:text-[#ff2070] transition-colors duration-200 text-sm font-mono tracking-widest"
+          >
+            → me
+          </a>
+        </nav>
+
+        {/* Hero */}
+        <header className="flex flex-col items-center justify-center flex-1 px-6 pt-8 pb-4">
+          <h1 className="neon-glow font-mono font-bold tracking-tighter text-white select-none
+                         text-6xl sm:text-8xl md:text-9xl">
+            93.fyi
+          </h1>
+          <p className="mt-4 text-zinc-600 text-xs tracking-[0.3em] uppercase font-mono">
+            personal hub
           </p>
         </header>
 
-        <section className="space-y-6">
-          {links.map((link) => (
-            <div key={link.label} className="group relative border border-zinc-800 p-6 rounded-lg transition-all hover:bg-zinc-900 hover:border-zinc-700">
-              <Link href={link.href} className="flex flex-col gap-1">
-                <span className="text-xl font-medium tracking-tight group-hover:underline">
-                  {link.label}
+        {/* Link cards */}
+        <main className="flex justify-center px-4 pb-12">
+          <section className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="link-card group border border-zinc-800 bg-[#0f0808]/50 rounded-lg p-4 flex items-start gap-3"
+              >
+                <span className="text-xl mt-0.5 flex-shrink-0" aria-hidden="true">
+                  {link.icon}
                 </span>
-                <span className="text-sm text-zinc-500">{link.description}</span>
-                <span className="mt-2 text-xs text-zinc-600 truncate">{link.href}</span>
-              </Link>
-            </div>
-          ))}
-        </section>
+                <div className="min-w-0">
+                  <div className="font-medium text-white group-hover:text-[#ff2070] transition-colors duration-200 tracking-tight leading-tight">
+                    {link.label}
+                  </div>
+                  <div className="text-xs text-zinc-500 mt-0.5 leading-snug">
+                    {link.description}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </section>
+        </main>
 
-        <footer className="mt-16 pt-8 border-t border-zinc-900 text-xs text-zinc-600 flex justify-between">
+        {/* Footer */}
+        <footer className="relative z-10 flex justify-between items-center px-6 py-5 border-t border-zinc-900 font-mono text-xs text-zinc-600">
           <span>&copy; {new Date().getFullYear()} 93.fyi</span>
-          <span className="hover:text-zinc-400 cursor-default transition-colors">
+          <span className="hover:text-zinc-400 transition-colors duration-200 cursor-default">
             Love is the law, love under will.
           </span>
         </footer>
-      </main>
+
+      </div>
     </div>
   );
 }
