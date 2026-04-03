@@ -89,10 +89,9 @@ type LinkDef = {
 };
 
 const publicLinks: LinkDef[] = [
-  { label: 'Status',       href: 'https://status.93.fyi', description: 'System uptime',                icon: <IconStatus /> },
-  { label: 'Now',          href: 'https://now.93.fyi',    description: "What I'm up to",               icon: <IconPin /> },
-  { label: 'NWB Workout',  href: 'https://nfit.93.fyi',   description: 'MRI-adjusted workout protocol', icon: <IconDumbbell /> },
-  { label: 'TrickAdvisor', href: 'https://ta.93.fyi',     description: 'Redirect to trickadvisor.cc',  icon: <IconDiamond /> },
+  { label: 'Status',      href: 'https://status.93.fyi', description: 'System uptime',                icon: <IconStatus /> },
+  { label: 'Now',         href: 'https://now.93.fyi',    description: "What I'm up to",               icon: <IconPin /> },
+  { label: 'NWB Workout', href: 'https://nfit.93.fyi',   description: 'MRI-adjusted workout protocol', icon: <IconDumbbell /> },
 ];
 
 const socialLinks: LinkDef[] = [
@@ -102,8 +101,9 @@ const socialLinks: LinkDef[] = [
 ];
 
 const privateLinks: LinkDef[] = [
-  { label: 'Seedbox',   href: 'https://seed.93.fyi', description: 'Torrent dashboard', icon: <IconWaves /> },
-  { label: 'Dashboard', href: 'https://me.93.fyi',   description: 'Private admin',     icon: <IconBolt /> },
+  { label: 'TrickAdvisor', href: 'https://ta.93.fyi',     description: 'Rate · Review · Anonymous', icon: <IconDiamond /> },
+  { label: 'Seedbox',      href: 'https://seed.93.fyi',   description: 'Torrent dashboard',         icon: <IconWaves /> },
+  { label: 'Dashboard',    href: 'https://me.93.fyi',     description: 'Private admin',             icon: <IconBolt /> },
 ];
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -218,11 +218,8 @@ export default function Home() {
         </main>
 
         {/* Footer */}
-        <footer className="relative z-10 flex justify-between items-center px-6 py-5 border-t border-zinc-900 font-mono text-xs text-zinc-600">
+        <footer className="relative z-10 flex justify-center items-center px-6 py-5 border-t border-zinc-900 font-mono text-xs text-zinc-600">
           <span>&copy; {new Date().getFullYear()} 93.fyi</span>
-          <span className="hover:text-zinc-400 transition-colors duration-200 cursor-default">
-            Love is the law, love under will.
-          </span>
         </footer>
 
       </div>
