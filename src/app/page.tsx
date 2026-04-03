@@ -8,8 +8,8 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
-    const match = document.cookie.split(';').find(c => c.trim().startsWith('hub_auth='));
-    if (match && match.split('=')[1]?.trim() === 'karl') {
+    const match = document.cookie.split(';').find(c => c.trim().startsWith('auth-93fyi='));
+    if (match) {
       setShowPrivate(true);
     }
   }, []);
@@ -33,7 +33,7 @@ export default function Home() {
           <a href="https://nyoga.93.fyi">NWB Yoga</a>
         </nav>
 
-        {showPrivate && (
+        {showPrivate ? (
           <>
             <div className="rule" />
             <nav className="links private">
@@ -43,6 +43,12 @@ export default function Home() {
               <a href="https://ta.93.fyi">TrickAdvisor</a>
             </nav>
           </>
+        ) : (
+          mounted && (
+            <div className="login-hint">
+              <a href="https://me.93.fyi/login">sign in</a>
+            </div>
+          )
         )}
       </main>
     </div>
