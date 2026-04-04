@@ -17,11 +17,6 @@ const mono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "93.fyi",
   description: "Personal hub — projects, shortcuts, and subdomains.",
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-  },
 };
 
 export default function RootLayout({
