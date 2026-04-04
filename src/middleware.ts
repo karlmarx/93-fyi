@@ -6,9 +6,7 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   const redirects: Record<string, string> = {
-    'ta.93.fyi':    'https://trickadvisor.cc',
-    'nfit.93.fyi':  'https://nwbfit.vercel.app',
-    'nyoga.93.fyi': 'https://nwb-yoga.vercel.app',
+    'ta.93.fyi': 'https://trickadvisor.cc',
   };
 
   if (hostname && redirects[hostname]) {
