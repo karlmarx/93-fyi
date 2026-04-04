@@ -24,6 +24,7 @@ export default function Home() {
 
         <div className="rule" />
 
+        <p className="section-label">Links</p>
         <nav className="links">
           <a href="https://status.93.fyi">Status</a>
           <a href="https://now.93.fyi">Now</a>
@@ -36,6 +37,7 @@ export default function Home() {
         {showPrivate ? (
           <>
             <div className="rule" />
+            <p className="section-label private-label">Private</p>
             <nav className="links private">
               <a href="https://seed.93.fyi">Seedbox</a>
               <a href="https://me.93.fyi">Dashboard</a>
@@ -50,6 +52,13 @@ export default function Home() {
             </div>
           )
         )}
+
+        <footer className="footer">
+          <div className="footer-left">
+            <span className="footer-dot" aria-hidden="true" />
+            <span>personal hub</span>
+          </div>
+        </footer>
       </main>
     </div>
   );
