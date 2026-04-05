@@ -1,65 +1,43 @@
-'use client';
+import { headers } from 'next/headers';
+import ClientShell from './ClientShell';
 
-import { useEffect, useState } from 'react';
+const PUBLIC_LINKS = [
+  { name: 'Status', href: 'https://status.93.fyi' },
+  { name: 'Now', href: 'https://now.93.fyi' },
+  { name: 'NWB Workout', href: 'https://nfit.93.fyi' },
+];
 
-export default function Home() {
-  const [showPrivate, setShowPrivate] = useState(false);
-  const [mounted, setMounted] = useState(false);
+const SOCIAL_LINKS = [
+  { name: 'GitHub', href: 'https://github.com/karlmarx', icon: 'github' },
+  { name: 'GitLab', href: 'https://gitlab.com/karlmarx2', icon: 'gitlab' },
+  { name: 'Instagram', href: 'https://instagram.com/karlmarx9193', icon: 'instagram' },
+];
 
-  useEffect(() => {
-    setMounted(true);
-    const match = document.cookie.split(';').find(c => c.trim().startsWith('auth-93fyi='));
-    if (match) {
-      setShowPrivate(true);
-    }
-  }, []);
+const PRIVATE_LINKS: Record<string, { name: string; href: string }[]> = {
+  'karlmarx9193@gmail.com': [
+    { name: 'Home Assistant', href: 'https://ha.93.fyi' },
+    { name: 'TrickAdvisor', href: 'https://ta.93.fyi' },
+    { name: 'Seedbox', href: 'https://seed.93.fyi' },
+    { name: 'Dashboard', href: 'https://me.93.fyi' },
+    { name: 'Todo', href: 'https://todo.93.fyi' },
+  ],
+  'brian.mina17@gmail.com': [
+    { name: 'Home Assistant', href: 'https://ha.93.fyi' },
+  ],
+};
+
+export default async function Home() {
+  const hdrs = await headers();
+  const userEmail = hdrs.get('x-user-email') || '';
+  const privateLinks = PRIVATE_LINKS[userEmail] || [];
+  const isAuthenticated = privateLinks.length > 0;
 
   return (
-    <div className="page">
-      <main className={`container ${mounted ? 'visible' : ''}`}>
-        <h1 className="title">
-          93.fyi
-          <span className="pulse-dot" aria-hidden="true" />
-        </h1>
-
-        <div className="rule" />
-
-        <p className="section-label">Links</p>
-        <nav className="links">
-          <a href="https://status.93.fyi">Status</a>
-          <a href="https://now.93.fyi">Now</a>
-          <a href="https://github.com/karlmarx">GitHub</a>
-          <a href="https://gitlab.com/karlmarx2">GitLab</a>
-          <a href="https://nfit.93.fyi">NWB Workout</a>
-          <a href="https://nyoga.93.fyi">NWB Yoga</a>
-        </nav>
-
-        {showPrivate ? (
-          <>
-            <div className="rule" />
-            <p className="section-label private-label">Private</p>
-            <nav className="links private">
-              <a href="https://seed.93.fyi">Seedbox</a>
-              <a href="https://me.93.fyi">Dashboard</a>
-              <a href="https://todo.93.fyi">Todo</a>
-              <a href="https://ta.93.fyi">TrickAdvisor</a>
-            </nav>
-          </>
-        ) : (
-          mounted && (
-            <div className="login-hint">
-              <a href="https://me.93.fyi/login">sign in</a>
-            </div>
-          )
-        )}
-
-        <footer className="footer">
-          <div className="footer-left">
-            <span className="footer-dot" aria-hidden="true" />
-            <span>personal hub</span>
-          </div>
-        </footer>
-      </main>
-    </div>
+    <ClientShell
+      publicLinks={PUBLIC_LINKS}
+      socialLinks={SOCIAL_LINKS}
+      privateLinks={privateLinks}
+      isAuthenticated={isAuthenticated}
+    />
   );
 }
