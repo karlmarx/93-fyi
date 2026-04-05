@@ -59,7 +59,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
             <span className="pulse-dot" aria-hidden="true" />
           </h1>
           {!isAuthenticated && (
-            <a href="https://ha.93.fyi" className="sign-in-link">→ sign in</a>
+            <a href="https://9193.cloudflareaccess.com/cdn-cgi/access/login/ha.93.fyi?redirect_url=https%3A%2F%2Fme.93.fyi" className="sign-in-link">→ sign in</a>
           )}
         </div>
 
