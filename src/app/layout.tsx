@@ -25,11 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${serif.variable} ${mono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full">{children}</body>
+    <html lang="en" className={`${serif.variable} ${mono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
