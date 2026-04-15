@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,11 @@ const mono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "93.fyi",
   description: "Personal hub — projects, shortcuts, and subdomains.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0e100f",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
