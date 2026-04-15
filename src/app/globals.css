@@ -327,3 +327,15 @@ body::after {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .container .links a,
+  .container .section-label,
+  .container .social-row,
+  .footer,
+  .pulse-dot {
+    animation: none;
+  }
+}
