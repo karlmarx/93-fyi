@@ -66,11 +66,7 @@ body::after {
 .container {
   width: 100%;
   max-width: 480px;
-  opacity: 0;
-}
-
-.container.visible {
-  animation: fadeUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: fadeUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 @keyframes fadeUp {
@@ -217,22 +213,21 @@ body::after {
 }
 
 /* ── Staggered entrance ── */
-.container.visible .links a {
-  opacity: 0;
-  animation: slideIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+.container .links a {
+  animation: slideIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
-.container.visible .links a:nth-child(1) { animation-delay: 0.20s; }
-.container.visible .links a:nth-child(2) { animation-delay: 0.26s; }
-.container.visible .links a:nth-child(3) { animation-delay: 0.32s; }
-.container.visible .links a:nth-child(4) { animation-delay: 0.38s; }
-.container.visible .links a:nth-child(5) { animation-delay: 0.44s; }
-.container.visible .links a:nth-child(6) { animation-delay: 0.50s; }
+.container .links a:nth-child(1) { animation-delay: 0.20s; }
+.container .links a:nth-child(2) { animation-delay: 0.26s; }
+.container .links a:nth-child(3) { animation-delay: 0.32s; }
+.container .links a:nth-child(4) { animation-delay: 0.38s; }
+.container .links a:nth-child(5) { animation-delay: 0.44s; }
+.container .links a:nth-child(6) { animation-delay: 0.50s; }
 
-.container.visible .links.private a:nth-child(1) { animation-delay: 0.60s; }
-.container.visible .links.private a:nth-child(2) { animation-delay: 0.66s; }
-.container.visible .links.private a:nth-child(3) { animation-delay: 0.72s; }
-.container.visible .links.private a:nth-child(4) { animation-delay: 0.78s; }
+.container .links.private a:nth-child(1) { animation-delay: 0.60s; }
+.container .links.private a:nth-child(2) { animation-delay: 0.66s; }
+.container .links.private a:nth-child(3) { animation-delay: 0.72s; }
+.container .links.private a:nth-child(4) { animation-delay: 0.78s; }
 
 @keyframes slideIn {
   from { opacity: 0; transform: translateX(-8px); }
@@ -240,16 +235,15 @@ body::after {
 }
 
 /* ── Section label stagger ── */
-.container.visible .section-label {
-  opacity: 0;
-  animation: labelIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+.container .section-label {
+  animation: labelIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
-.container.visible .section-label:nth-of-type(1) {
+.container .section-label:nth-of-type(1) {
   animation-delay: 0.12s;
 }
 
-.container.visible .section-label.private-label {
+.container .section-label.private-label {
   animation-delay: 0.52s;
 }
 
@@ -279,9 +273,8 @@ body::after {
   color: var(--fg-dim);
 }
 
-.container.visible .social-row {
-  opacity: 0;
-  animation: fadeIn 0.6s 0.56s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+.container .social-row {
+  animation: fadeIn 0.6s 0.56s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 @keyframes fadeIn {
@@ -300,8 +293,7 @@ body::after {
   font-size: 0.6875rem;
   color: var(--fg-muted);
   letter-spacing: 0.02em;
-  opacity: 0;
-  animation: fadeIn 0.8s 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: fadeIn 0.8s 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 .footer-left {

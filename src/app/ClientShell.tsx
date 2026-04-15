@@ -1,7 +1,3 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
 interface Link {
   name: string;
   href: string;
@@ -44,15 +40,9 @@ function SocialIcon({ icon }: { icon: string }) {
 }
 
 export default function ClientShell({ publicLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <div className="page">
-      <main className={`container ${mounted ? 'visible' : ''}`}>
+      <main className="container">
         <div className="header-row">
           <h1 className="title">
             93.fyi
