@@ -55,7 +55,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
 
         <div className="rule" />
 
-        <p className="section-label">Links</p>
+        <h2 className="section-label">Links</h2>
         <nav className="links">
           {publicLinks.map((link) => (
             <a key={link.href} href={link.href}>{link.name}</a>
@@ -73,7 +73,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
         {isAuthenticated && privateLinks.length > 0 && (
           <>
             <div className="rule" />
-            <p className="section-label private-label">Private</p>
+            <h2 className="section-label private-label">Private</h2>
             <nav className="links private">
               {privateLinks.map((link) => (
                 <a key={link.href} href={link.href}>{link.name}</a>

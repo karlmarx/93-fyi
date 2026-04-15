@@ -139,7 +139,7 @@ body::after {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--fg-muted);
-  margin-bottom: 0.75rem;
+  margin: 0 0 0.75rem 0;
   padding-left: 0.125rem;
 }
 
