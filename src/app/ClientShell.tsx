@@ -64,7 +64,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
 
         <div className="social-row">
           {socialLinks.map((link) => (
-            <a key={link.href} href={link.href} className="social-icon" title={link.name} target="_blank" rel="noopener noreferrer">
+            <a key={link.href} href={link.href} className="social-icon" aria-label={link.name} title={link.name} target="_blank" rel="noopener noreferrer">
               <SocialIcon icon={link.icon} />
             </a>
           ))}
