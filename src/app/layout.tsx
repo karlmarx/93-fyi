@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -19,17 +19,19 @@ export const metadata: Metadata = {
   description: "Personal hub — projects, shortcuts, and subdomains.",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0e100f",
+  colorScheme: "dark",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${serif.variable} ${mono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full">{children}</body>
+    <html lang="en" className={`${serif.variable} ${mono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

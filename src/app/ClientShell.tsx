@@ -1,7 +1,3 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
 interface Link {
   name: string;
   href: string;
@@ -44,15 +40,9 @@ function SocialIcon({ icon }: { icon: string }) {
 }
 
 export default function ClientShell({ publicLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <div className="page">
-      <main className={`container ${mounted ? 'visible' : ''}`}>
+      <main className="container">
         <div className="header-row">
           <h1 className="title">
             93.fyi
@@ -65,7 +55,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
 
         <div className="rule" />
 
-        <p className="section-label">Links</p>
+        <h2 className="section-label">Links</h2>
         <nav className="links">
           {publicLinks.map((link) => (
             <a key={link.href} href={link.href}>{link.name}</a>
@@ -74,7 +64,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
 
         <div className="social-row">
           {socialLinks.map((link) => (
-            <a key={link.href} href={link.href} className="social-icon" title={link.name} target="_blank" rel="noopener noreferrer">
+            <a key={link.href} href={link.href} className="social-icon" aria-label={link.name} title={link.name} target="_blank" rel="noopener noreferrer">
               <SocialIcon icon={link.icon} />
             </a>
           ))}
@@ -83,7 +73,7 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
         {isAuthenticated && privateLinks.length > 0 && (
           <>
             <div className="rule" />
-            <p className="section-label private-label">Private</p>
+            <h2 className="section-label private-label">Private</h2>
             <nav className="links private">
               {privateLinks.map((link) => (
                 <a key={link.href} href={link.href}>{link.name}</a>
