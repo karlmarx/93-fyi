@@ -2,6 +2,8 @@
 
 Personal hub at [93.fyi](https://93.fyi) — the landing page that routes to my projects, utilities, and subdomains.
 
+**Dashboard:** [me.93.fyi](https://me.93.fyi)
+
 ## Stack
 
 - Next.js 16 (App Router, Turbopack), React 19, TypeScript
