@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Workouts — Aesthetic Fitness Gallery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0,0,0,0.8);
+            border-bottom: 3px solid #ff1744;
+            padding: 3rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #ff1744, #ff6b6b, #ff1744);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            color: #ff1744;
+            font-weight: bold;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            padding: 3rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .frame {
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .frame:hover {
+            border-color: #ff1744;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 23, 68, 0.3);
+        }
+
+        .frame-image {
+            width: 100%;
+            aspect-ratio: 9/16;
+            object-fit: cover;
+            background: #000;
+            display: block;
+        }
+
+        .frame-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.9));
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .frame:hover .frame-overlay {
+            opacity: 1;
+        }
+
+        .frame-score {
+            font-size: 1.5rem;
+            color: #ff1744;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .frame-exercises {
+            font-size: 0.9rem;
+            color: #ff9100;
+            margin-bottom: 0.5rem;
+        }
+
+        .frame-intensity {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .intensity-high { color: #ff1744; }
+        .intensity-moderate { color: #ff9100; }
+        .intensity-low { color: #ffc107; }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .lightbox-image {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -2rem;
+            right: 0;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-info {
+            background: #1a1a2e;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            border-top: 1px solid #333;
+            margin-top: 3rem;
+        }
+
+        a {
+            color: #ff1744;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔥 AESTHETIC FITNESS</h1>
+        <p class="subtitle">Premium Workout Photography Gallery</p>
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-num">24</span>
+                <span>Peak Frames</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">9</span>
+                <span>Sessions</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="gallery" id="gallery">
+        
+        <div class="frame" onclick="openLightbox('images/ad0f5548ffe72d5109c99da151bd2d1a0d1e86139e77f680edbc31ea7eb733bf_frame002.jpg', ["abdominal crunch"], 75, 'moderate')">
+            <img class="frame-image" src="images/ad0f5548ffe72d5109c99da151bd2d1a0d1e86139e77f680edbc31ea7eb733bf_frame002.jpg" alt="abdominal crunch">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">abdominal crunch</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame000.jpg', ["bench press"], 75, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame000.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame002.jpg', ["lying barbell bench press"], 75, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame002.jpg" alt="lying barbell bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">lying barbell bench press</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame004.jpg', ["bench press"], 75, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame004.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame005.jpg', ["bench press"], 75, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame005.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame007.jpg', ["bench press"], 75, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame007.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame001.jpg', ["bench press"], 75, 'high')">
+            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame001.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-high">high</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame002.jpg', ["bench press"], 75, 'moderate')">
+            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame002.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/d0040bea8dec67c2be131268ce28db6339e583b2520e354981e7d503f1b58e36_frame000.jpg', ["bench press"], 75, 'unknown')">
+            <img class="frame-image" src="images/d0040bea8dec67c2be131268ce28db6339e583b2520e354981e7d503f1b58e36_frame000.jpg" alt="bench press">
+            <div class="frame-overlay">
+                <div class="frame-score">75/100</div>
+                <div class="frame-exercises">bench press</div>
+                <div class="frame-intensity intensity-unknown">unknown</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame012.jpg', ["sit-up"], 65, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame012.jpg" alt="sit-up">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">sit-up</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame035.jpg', ["plank"], 65, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame035.jpg" alt="plank">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">plank</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame036.jpg', ["sit-up"], 65, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame036.jpg" alt="sit-up">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">sit-up</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame041.jpg', ["sit-up"], 65, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame041.jpg" alt="sit-up">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">sit-up</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame051.jpg', ["stretching"], 65, 'low')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame051.jpg" alt="stretching">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">stretching</div>
+                <div class="frame-intensity intensity-low">low</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame052.jpg', ["core exercise"], 65, 'moderate')">
+            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame052.jpg" alt="core exercise">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">core exercise</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/eadc9b5150b50775f527f695003dfdbc598c5622a311a9e676f37ba855bc4a6a_frame013.jpg', ["hanging leg raise"], 65, 'high')">
+            <img class="frame-image" src="images/eadc9b5150b50775f527f695003dfdbc598c5622a311a9e676f37ba855bc4a6a_frame013.jpg" alt="hanging leg raise">
+            <div class="frame-overlay">
+                <div class="frame-score">65/100</div>
+                <div class="frame-exercises">hanging leg raise</div>
+                <div class="frame-intensity intensity-high">high</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/b81c74adff11d767d1163094b23136239541a3c29d655bfbf7da0c1a24d47103_frame000.jpg', ["chest stretch"], 60, 'low')">
+            <img class="frame-image" src="images/b81c74adff11d767d1163094b23136239541a3c29d655bfbf7da0c1a24d47103_frame000.jpg" alt="chest stretch">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">chest stretch</div>
+                <div class="frame-intensity intensity-low">low</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame003.jpg', ["lying chest stretch"], 60, 'low')">
+            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame003.jpg" alt="lying chest stretch">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">lying chest stretch</div>
+                <div class="frame-intensity intensity-low">low</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame005.jpg', ["barbell stretch"], 60, 'low')">
+            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame005.jpg" alt="barbell stretch">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">barbell stretch</div>
+                <div class="frame-intensity intensity-low">low</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame008.jpg', ["lying barbell stretch"], 60, 'low')">
+            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame008.jpg" alt="lying barbell stretch">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">lying barbell stretch</div>
+                <div class="frame-intensity intensity-low">low</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame000.jpg', ["leg extension"], 60, 'unknown')">
+            <img class="frame-image" src="images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame000.jpg" alt="leg extension">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">leg extension</div>
+                <div class="frame-intensity intensity-unknown">unknown</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame001.jpg', ["seated elliptical"], 60, 'moderate')">
+            <img class="frame-image" src="images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame001.jpg" alt="seated elliptical">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">seated elliptical</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/d925990c87cd023e41528f4ae2454d2037c91566d7899e0000cfb03109d14615_frame002.jpg', ["indoor cycling"], 60, 'moderate')">
+            <img class="frame-image" src="images/d925990c87cd023e41528f4ae2454d2037c91566d7899e0000cfb03109d14615_frame002.jpg" alt="indoor cycling">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">indoor cycling</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+        <div class="frame" onclick="openLightbox('images/dff6ad4a9e35bdbd0976a7ed1db1842892702917e99cfb741be1a1261cf7a30c_frame002.jpg', ["sit-up"], 60, 'moderate')">
+            <img class="frame-image" src="images/dff6ad4a9e35bdbd0976a7ed1db1842892702917e99cfb741be1a1261cf7a30c_frame002.jpg" alt="sit-up">
+            <div class="frame-overlay">
+                <div class="frame-score">60/100</div>
+                <div class="frame-exercises">sit-up</div>
+                <div class="frame-intensity intensity-moderate">moderate</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img class="lightbox-image" id="lightboxImage" alt="Full size">
+            <div class="lightbox-info">
+                <div id="lightboxInfo"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built with ML vision analysis • hot.93.fyi</p>
+    </footer>
+
+    <script>
+        function openLightbox(image, exercises, score, intensity) {
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightboxImage').src = image;
+            document.getElementById('lightboxInfo').innerHTML = `
+                <p><strong>Score:</strong> <span style="color: #ff1744;">${score}/100</span></p>
+                <p><strong>Exercises:</strong> ${exercises.join(', ')}</p>
+                <p><strong>Intensity:</strong> <span class="intensity-${intensity.toLowerCase()}">${intensity}</span></p>
+            `;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) closeLightbox();
+        });
+    </script>
+</body>
+</html>

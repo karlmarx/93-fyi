@@ -1,3 +1,6 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "@site_url"
+  }
 }

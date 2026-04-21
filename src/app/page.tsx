@@ -16,6 +16,7 @@ const SOCIAL_LINKS = [
 
 const PRIVATE_LINKS: Record<string, { name: string; href: string }[]> = {
   'karlmarx9193@gmail.com': [
+    { name: 'Hot', href: 'https://hot.93.fyi' },
     { name: 'Home Assistant', href: 'https://ha.93.fyi' },
     { name: 'TrickAdvisor', href: 'https://ta.93.fyi' },
     { name: 'Seedbox', href: 'https://seed.93.fyi' },
