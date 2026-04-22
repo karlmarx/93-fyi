@@ -1,0 +1,20 @@
+{
+  "barbell": [
+    {
+      "file": "barbell_01.gif",
+      "exercises": [
+        "bench press"
+      ],
+      "intensity": "moderate",
+      "score": 50
+    },
+    {
+      "file": "barbell_02.gif",
+      "exercises": [
+        "bench press"
+      ],
+      "intensity": "moderate",
+      "score": 50
+    }
+  ]
+}
