@@ -10,6 +10,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  // Route workoutgifs.93.fyi to /workoutgifs
+  if (host.includes('workoutgifs.93.fyi')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/workoutgifs' + url.pathname;
+    return NextResponse.rewrite(url);
+  }
+
   return NextResponse.next();
 }
 

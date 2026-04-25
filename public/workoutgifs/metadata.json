@@ -1,0 +1,357 @@
+{
+  "generated_at": "2026-04-15 18:50:43",
+  "source": "local-vlm-analysis nwb pipeline",
+  "sections": {
+    "core": {
+      "label": "CORE & STABILITY",
+      "exercises": {
+        "McGill Curl-Up": {
+          "slug": "mcgill_curl_up",
+          "count": 4,
+          "gifs": [
+            {
+              "sha": "be0939b28d55",
+              "file": "be0939b28d55397bed246cbd45af4b20d6db7b504faaacd6a6942cee48959d8c.gif",
+              "duration": 18.0,
+              "t_start": 1.0,
+              "votes": {
+                "McGill Curl-Up": 2,
+                "Prone Single-Arm Reach": 2,
+                "Prone Y-T-W Raises": 1
+              },
+              "size_kb": 17003
+            },
+            {
+              "sha": "65503c1b4341",
+              "file": "65503c1b43415de40653b296fd768854ccddafa87bf4a35c4cc37bfdb452d197.gif",
+              "duration": 2.1,
+              "t_start": 1.0,
+              "votes": {
+                "McGill Curl-Up": 1
+              },
+              "size_kb": 2020
+            },
+            {
+              "sha": "ad0f5548ffe7",
+              "file": "ad0f5548ffe72d5109c99da151bd2d1a0d1e86139e77f680edbc31ea7eb733bf.gif",
+              "duration": 18.0,
+              "t_start": 6.0,
+              "votes": {
+                "Stir the Pot": 1,
+                "McGill Curl-Up": 2,
+                "not_a_match": 2
+              },
+              "size_kb": 14272
+            },
+            {
+              "sha": "2a5086f5631d",
+              "file": "2a5086f5631de5d7c4ec1ea5ff7be8d20283b849a45d99d0fc2e0451680ebd8e.gif",
+              "duration": 3.0,
+              "t_start": 1.0,
+              "votes": {
+                "McGill Curl-Up": 1,
+                "Prone Hip Extension (R)": 1
+              },
+              "size_kb": 804
+            }
+          ]
+        },
+        "Suitcase Hold": {
+          "slug": "suitcase_hold",
+          "count": 4,
+          "gifs": [
+            {
+              "sha": "6a05ce788d64",
+              "file": "6a05ce788d645b90a531f14bef831d2fd70775f9e4cb8ba6df471845076db224.gif",
+              "duration": 13.0,
+              "t_start": 1.0,
+              "votes": {
+                "Suitcase Hold": 2,
+                "not_a_match": 2
+              },
+              "size_kb": 11524
+            },
+            {
+              "sha": "045144b7fae8",
+              "file": "045144b7fae8fa68e418626eb70f0b3cdb77a69d2ff00c85d1f4d4823833f3ae.gif",
+              "duration": 8.0,
+              "t_start": 6.0,
+              "votes": {
+                "not_a_match": 2,
+                "Suitcase Hold": 2
+              },
+              "size_kb": 7735
+            },
+            {
+              "sha": "5e71dba7a576",
+              "file": "5e71dba7a576da3aa20f49806a78c512a6419d46b6935af1c13704e1e2f69f59.gif",
+              "duration": 13.0,
+              "t_start": 1.0,
+              "votes": {
+                "Suitcase Hold": 3,
+                "Warrior III (Modified)": 1
+              },
+              "size_kb": 14519
+            },
+            {
+              "sha": "36bd46b6deec",
+              "file": "36bd46b6deeca5a745bc6a5b4235f60110af8707b865a91242bdd8647661d11d.gif",
+              "duration": 3.0,
+              "t_start": 1.0,
+              "votes": {
+                "Suitcase Hold": 1,
+                "not_a_match": 1
+              },
+              "size_kb": 2724
+            }
+          ]
+        },
+        "Overhead Plate Hold": {
+          "slug": "overhead_plate_hold",
+          "count": 3,
+          "gifs": [
+            {
+              "sha": "48ddc477827d",
+              "file": "48ddc477827d0a99aae633b79be3f95c1d68d088706a47ed0848327ffba6e742.gif",
+              "duration": 8.0,
+              "t_start": 1.0,
+              "votes": {
+                "Overhead Plate Hold": 2,
+                "not_a_match": 1,
+                "Prone Hip Extension (R)": 1
+              },
+              "size_kb": 8876
+            },
+            {
+              "sha": "4a1b68e36c49",
+              "file": "4a1b68e36c497b77ee32616330c071564d44d78ba99f5c2197ee2e7fef806c9e.gif",
+              "duration": 8.0,
+              "t_start": 6.0,
+              "votes": {
+                "not_a_match": 2,
+                "Overhead Plate Hold": 2
+              },
+              "size_kb": 8898
+            },
+            {
+              "sha": "d0040bea8dec",
+              "file": "d0040bea8dec67c2be131268ce28db6339e583b2520e354981e7d503f1b58e36.gif",
+              "duration": 2.3,
+              "t_start": 1.0,
+              "votes": {
+                "Overhead Plate Hold": 1
+              },
+              "size_kb": 2050
+            }
+          ]
+        },
+        "Barbell Rollouts": {
+          "slug": "barbell_rollouts",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "b81c74adff11",
+              "file": "b81c74adff11d767d1163094b23136239541a3c29d655bfbf7da0c1a24d47103.gif",
+              "duration": 7.6,
+              "t_start": 16.0,
+              "votes": {
+                "not_a_match": 2,
+                "McGill Curl-Up": 1,
+                "Barbell Rollouts": 2
+              },
+              "size_kb": 8736
+            }
+          ]
+        },
+        "Prone Single-Arm Reach": {
+          "slug": "prone_single_arm_reach",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "a52fb1a2475c",
+              "file": "a52fb1a2475c628f6ea8764e8e8d742e8d75a6e2e4792aa28d7e222d09a62e1a.gif",
+              "duration": 13.0,
+              "t_start": 6.0,
+              "votes": {
+                "Prone Y-T-W Raises": 1,
+                "Prone Single-Arm Reach": 3
+              },
+              "size_kb": 4038
+            }
+          ]
+        },
+        "TRX Body Saw": {
+          "slug": "trx_body_saw",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "6f7f66333b33",
+              "file": "6f7f66333b33c18a2cd042857aaf51f0daf250b28f1bdcf8cb559b36b5ae1c75.gif",
+              "duration": 23.0,
+              "t_start": 1.0,
+              "votes": {
+                "TRX Body Saw": 2,
+                "Prone Single-Arm Reach": 2,
+                "Prone Iso Hold": 1
+              },
+              "size_kb": 8238
+            }
+          ]
+        }
+      }
+    },
+    "legs": {
+      "label": "LEGS \u00b7 UNILATERAL",
+      "exercises": {
+        "SL Leg Press (R)": {
+          "slug": "sl_leg_press_r",
+          "count": 8,
+          "gifs": [
+            {
+              "sha": "bd387bb29f68",
+              "file": "bd387bb29f68e6a6e9f9d92318ee0f0455167d091742710cba8ea181395e5b06.gif",
+              "duration": 3.0,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 3511
+            },
+            {
+              "sha": "bb9e588cb012",
+              "file": "bb9e588cb0127b10674f616c988a835dcec3674fd017c39251664eeffecf5ab3.gif",
+              "duration": 7.4,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 8979
+            },
+            {
+              "sha": "95ddd5ba2bb2",
+              "file": "95ddd5ba2bb2738ea5541850cb3d99cd4daec177d2571208663f7eec2d2384ee.gif",
+              "duration": 2.9,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 874
+            },
+            {
+              "sha": "d7ee0fb00cc6",
+              "file": "d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e.gif",
+              "duration": 6.9,
+              "t_start": 6.0,
+              "votes": {
+                "not_a_match": 1,
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 7827
+            },
+            {
+              "sha": "1ac4a48721a5",
+              "file": "1ac4a48721a596eb357654686c227f56cc63a67e4126e0764cb40da201c62031.gif",
+              "duration": 2.2,
+              "t_start": 6.0,
+              "votes": {
+                "not_a_match": 1,
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 1877
+            },
+            {
+              "sha": "f940365f18bb",
+              "file": "f940365f18bb52b0525c403442da1427da19f33491864ed5923d35a054a37fe9.gif",
+              "duration": 1.8,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 1796
+            },
+            {
+              "sha": "36985099ebcc",
+              "file": "36985099ebcc55dc8d72c21234d875a3dc96abf6531279c284b2af102588cf50.gif",
+              "duration": 8.0,
+              "t_start": 11.0,
+              "votes": {
+                "not_a_match": 2,
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 6812
+            },
+            {
+              "sha": "1e52724e71a0",
+              "file": "1e52724e71a06686f0d675d38140176108d10ac2d45ff5a3491e98d7cfa807d5.gif",
+              "duration": 8.0,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 8272
+            }
+          ]
+        },
+        "SL Leg Extension (R)": {
+          "slug": "sl_leg_extension_r",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "ca2242066676",
+              "file": "ca224206667677d23b6e7aab7e5805ae89e892cfb30545516ff5cbdfe5be8fc3.gif",
+              "duration": 3.0,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Extension (R)": 1
+              },
+              "size_kb": 3160
+            }
+          ]
+        }
+      }
+    },
+    "arms": {
+      "label": "ARMS \u00b7 ISOLATION",
+      "exercises": {
+        "Cable Kickback (R)": {
+          "slug": "cable_kickback_r",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "211b04d29661",
+              "file": "211b04d29661bd1ecc076128c70f91d6e95dae7ef7a184904c5574e1a6e1ce23.gif",
+              "duration": 23.0,
+              "t_start": 1.0,
+              "votes": {
+                "Cable Kickback (R)": 5,
+                "not_a_match": 2
+              },
+              "size_kb": 21107
+            }
+          ]
+        }
+      }
+    },
+    "mobility": {
+      "label": "MOBILITY",
+      "exercises": {
+        "Warrior III (Modified)": {
+          "slug": "warrior_iii_modified",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "75300e729eb5",
+              "file": "75300e729eb5b1cc8b99c02a979d840d5da1516f5229f74f2fea4a0ad5a24eaf.gif",
+              "duration": 2.6,
+              "t_start": 1.0,
+              "votes": {
+                "Warrior III (Modified)": 1
+              },
+              "size_kb": 2647
+            }
+          ]
+        }
+      }
+    }
+  }
+}
