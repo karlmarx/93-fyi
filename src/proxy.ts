@@ -14,6 +14,17 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(target, 301);
   }
 
+  // Subdomain → path rewrites (mirrors hot.93.fyi pattern)
+  const rewrites: Record<string, string> = {
+    'hot.93.fyi': '/hot',
+    'workoutgifs.93.fyi': '/workoutgifs',
+  };
+  if (hostname && rewrites[hostname]) {
+    const url = request.nextUrl.clone();
+    url.pathname = rewrites[hostname] + path;
+    return NextResponse.rewrite(url);
+  }
+
   return NextResponse.next();
 }
 
