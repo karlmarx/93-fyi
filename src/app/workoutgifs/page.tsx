@@ -30,7 +30,7 @@ type Metadata = {
   sections: Record<string, Section>;
 };
 
-const SECTION_ORDER = ['core', 'legs', 'arms', 'mobility'];
+const SECTION_ORDER = ['push', 'pull', 'legs', 'core', 'arms', 'mobility', 'cardio'];
 
 export default async function WorkoutGifsPage() {
   const metaPath = path.join(process.cwd(), 'public', 'workoutgifs', 'metadata.json');

@@ -1,13 +1,161 @@
 {
-  "generated_at": "2026-04-15 18:50:43",
-  "source": "local-vlm-analysis nwb pipeline",
+  "generated_at": "2026-04-25 19:11:24",
+  "source": "local-vlm-analysis nwb pipeline + fan-out subagent verification",
   "sections": {
+    "push": {
+      "label": "PUSH",
+      "exercises": {
+        "Barbell Floor Press": {
+          "slug": "barbell_floor_press",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "c8a77748bc08",
+              "file": "c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8.gif",
+              "duration": 8.0,
+              "t_start": 22.5,
+              "votes": {},
+              "size_kb": 2186
+            }
+          ]
+        }
+      }
+    },
+    "pull": {
+      "label": "PULL",
+      "exercises": {
+        "Chest-Supported Dumbbell Row": {
+          "slug": "chest_supported_dumbbell_row",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "eba923d456fa",
+              "file": "eba923d456fab33eb06d4b247c10a7c2c0e6efa066197c6e412d13a54f65b752.gif",
+              "duration": 6.0,
+              "t_start": 5.0,
+              "votes": {},
+              "size_kb": 5465
+            }
+          ]
+        }
+      }
+    },
+    "legs": {
+      "label": "LEGS \u00b7 UNILATERAL",
+      "exercises": {
+        "SL Leg Press (R)": {
+          "slug": "sl_leg_press_r",
+          "count": 8,
+          "gifs": [
+            {
+              "sha": "bd387bb29f68",
+              "file": "bd387bb29f68e6a6e9f9d92318ee0f0455167d091742710cba8ea181395e5b06.gif",
+              "duration": 3.0,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 3511
+            },
+            {
+              "sha": "bb9e588cb012",
+              "file": "bb9e588cb0127b10674f616c988a835dcec3674fd017c39251664eeffecf5ab3.gif",
+              "duration": 7.4,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 8979
+            },
+            {
+              "sha": "95ddd5ba2bb2",
+              "file": "95ddd5ba2bb2738ea5541850cb3d99cd4daec177d2571208663f7eec2d2384ee.gif",
+              "duration": 2.9,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 874
+            },
+            {
+              "sha": "d7ee0fb00cc6",
+              "file": "d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e.gif",
+              "duration": 6.9,
+              "t_start": 6.0,
+              "votes": {
+                "not_a_match": 1,
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 7827
+            },
+            {
+              "sha": "1ac4a48721a5",
+              "file": "1ac4a48721a596eb357654686c227f56cc63a67e4126e0764cb40da201c62031.gif",
+              "duration": 2.2,
+              "t_start": 6.0,
+              "votes": {
+                "not_a_match": 1,
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 1877
+            },
+            {
+              "sha": "f940365f18bb",
+              "file": "f940365f18bb52b0525c403442da1427da19f33491864ed5923d35a054a37fe9.gif",
+              "duration": 1.8,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 1
+              },
+              "size_kb": 1796
+            },
+            {
+              "sha": "36985099ebcc",
+              "file": "36985099ebcc55dc8d72c21234d875a3dc96abf6531279c284b2af102588cf50.gif",
+              "duration": 8.0,
+              "t_start": 11.0,
+              "votes": {
+                "not_a_match": 2,
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 6812
+            },
+            {
+              "sha": "1e52724e71a0",
+              "file": "1e52724e71a06686f0d675d38140176108d10ac2d45ff5a3491e98d7cfa807d5.gif",
+              "duration": 8.0,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Press (R)": 2
+              },
+              "size_kb": 8272
+            }
+          ]
+        },
+        "SL Leg Extension (R)": {
+          "slug": "sl_leg_extension_r",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "ca2242066676",
+              "file": "ca224206667677d23b6e7aab7e5805ae89e892cfb30545516ff5cbdfe5be8fc3.gif",
+              "duration": 3.0,
+              "t_start": 1.0,
+              "votes": {
+                "SL Leg Extension (R)": 1
+              },
+              "size_kb": 3160
+            }
+          ]
+        }
+      }
+    },
     "core": {
       "label": "CORE & STABILITY",
       "exercises": {
         "McGill Curl-Up": {
           "slug": "mcgill_curl_up",
-          "count": 4,
+          "count": 5,
           "gifs": [
             {
               "sha": "be0939b28d55",
@@ -53,6 +201,14 @@
                 "Prone Hip Extension (R)": 1
               },
               "size_kb": 804
+            },
+            {
+              "sha": "dff6ad4a9e35",
+              "file": "dff6ad4a9e35bdbd0976a7ed1db1842892702917e99cfb741be1a1261cf7a30c.gif",
+              "duration": 6.0,
+              "t_start": 9.5,
+              "votes": {},
+              "size_kb": 4599
             }
           ]
         },
@@ -197,114 +353,18 @@
               "size_kb": 8238
             }
           ]
-        }
-      }
-    },
-    "legs": {
-      "label": "LEGS \u00b7 UNILATERAL",
-      "exercises": {
-        "SL Leg Press (R)": {
-          "slug": "sl_leg_press_r",
-          "count": 8,
-          "gifs": [
-            {
-              "sha": "bd387bb29f68",
-              "file": "bd387bb29f68e6a6e9f9d92318ee0f0455167d091742710cba8ea181395e5b06.gif",
-              "duration": 3.0,
-              "t_start": 1.0,
-              "votes": {
-                "SL Leg Press (R)": 1
-              },
-              "size_kb": 3511
-            },
-            {
-              "sha": "bb9e588cb012",
-              "file": "bb9e588cb0127b10674f616c988a835dcec3674fd017c39251664eeffecf5ab3.gif",
-              "duration": 7.4,
-              "t_start": 1.0,
-              "votes": {
-                "SL Leg Press (R)": 2
-              },
-              "size_kb": 8979
-            },
-            {
-              "sha": "95ddd5ba2bb2",
-              "file": "95ddd5ba2bb2738ea5541850cb3d99cd4daec177d2571208663f7eec2d2384ee.gif",
-              "duration": 2.9,
-              "t_start": 1.0,
-              "votes": {
-                "SL Leg Press (R)": 1
-              },
-              "size_kb": 874
-            },
-            {
-              "sha": "d7ee0fb00cc6",
-              "file": "d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e.gif",
-              "duration": 6.9,
-              "t_start": 6.0,
-              "votes": {
-                "not_a_match": 1,
-                "SL Leg Press (R)": 2
-              },
-              "size_kb": 7827
-            },
-            {
-              "sha": "1ac4a48721a5",
-              "file": "1ac4a48721a596eb357654686c227f56cc63a67e4126e0764cb40da201c62031.gif",
-              "duration": 2.2,
-              "t_start": 6.0,
-              "votes": {
-                "not_a_match": 1,
-                "SL Leg Press (R)": 1
-              },
-              "size_kb": 1877
-            },
-            {
-              "sha": "f940365f18bb",
-              "file": "f940365f18bb52b0525c403442da1427da19f33491864ed5923d35a054a37fe9.gif",
-              "duration": 1.8,
-              "t_start": 1.0,
-              "votes": {
-                "SL Leg Press (R)": 1
-              },
-              "size_kb": 1796
-            },
-            {
-              "sha": "36985099ebcc",
-              "file": "36985099ebcc55dc8d72c21234d875a3dc96abf6531279c284b2af102588cf50.gif",
-              "duration": 8.0,
-              "t_start": 11.0,
-              "votes": {
-                "not_a_match": 2,
-                "SL Leg Press (R)": 2
-              },
-              "size_kb": 6812
-            },
-            {
-              "sha": "1e52724e71a0",
-              "file": "1e52724e71a06686f0d675d38140176108d10ac2d45ff5a3491e98d7cfa807d5.gif",
-              "duration": 8.0,
-              "t_start": 1.0,
-              "votes": {
-                "SL Leg Press (R)": 2
-              },
-              "size_kb": 8272
-            }
-          ]
         },
-        "SL Leg Extension (R)": {
-          "slug": "sl_leg_extension_r",
+        "TRX Pike": {
+          "slug": "trx_pike",
           "count": 1,
           "gifs": [
             {
-              "sha": "ca2242066676",
-              "file": "ca224206667677d23b6e7aab7e5805ae89e892cfb30545516ff5cbdfe5be8fc3.gif",
-              "duration": 3.0,
-              "t_start": 1.0,
-              "votes": {
-                "SL Leg Extension (R)": 1
-              },
-              "size_kb": 3160
+              "sha": "eadc9b5150b5",
+              "file": "eadc9b5150b50775f527f695003dfdbc598c5622a311a9e676f37ba855bc4a6a.gif",
+              "duration": 7.0,
+              "t_start": 42.5,
+              "votes": {},
+              "size_kb": 2154
             }
           ]
         }
@@ -348,6 +408,25 @@
                 "Warrior III (Modified)": 1
               },
               "size_kb": 2647
+            }
+          ]
+        }
+      }
+    },
+    "cardio": {
+      "label": "CARDIO",
+      "exercises": {
+        "Cardio Machine Montage": {
+          "slug": "cardio_machine_montage",
+          "count": 1,
+          "gifs": [
+            {
+              "sha": "d925990c87cd",
+              "file": "d925990c87cd023e41528f4ae2454d2037c91566d7899e0000cfb03109d14615.gif",
+              "duration": 6.0,
+              "t_start": 10.5,
+              "votes": {},
+              "size_kb": 6690
             }
           ]
         }
