@@ -7,7 +7,16 @@ interface SocialLink extends Link {
   icon: string;
 }
 
+interface Project {
+  host: string;
+  href: string;
+  description: string;
+  cta?: string;
+  legal?: Link[];
+}
+
 interface Props {
+  projects: Project[];
   publicLinks: Link[];
   socialLinks: SocialLink[];
   privateLinks: Link[];
@@ -39,7 +48,7 @@ function SocialIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function ClientShell({ publicLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
+export default function ClientShell({ projects, publicLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
   return (
     <div className="page">
       <main className="container">
@@ -51,6 +60,33 @@ export default function ClientShell({ publicLinks, socialLinks, privateLinks, is
           {!isAuthenticated && (
             <a href="https://me.93.fyi/login" className="sign-in-link">→ sign in</a>
           )}
+        </div>
+
+        <div className="rule" />
+
+        <h2 className="section-label">Projects</h2>
+        <div className="projects">
+          {projects.map((p) => (
+            <article key={p.host} className="project">
+              <div className="project-host">{p.host}</div>
+              <p className="project-desc">{p.description}</p>
+              <div className="project-actions">
+                <a className="project-cta" href={p.href}>
+                  {p.cta ?? 'Visit'} <span aria-hidden="true">→</span>
+                </a>
+                {p.legal && p.legal.length > 0 && (
+                  <span className="project-legal">
+                    {p.legal.map((l, i) => (
+                      <span key={l.href}>
+                        {i > 0 && <span className="project-legal-sep" aria-hidden="true"> · </span>}
+                        <a href={l.href}>{l.name}</a>
+                      </span>
+                    ))}
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
         </div>
 
         <div className="rule" />
