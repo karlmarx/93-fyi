@@ -8,6 +8,32 @@ const PUBLIC_LINKS = [
   { name: 'NWB Yoga', href: 'https://nyoga.93.fyi' },
 ];
 
+const PROJECTS = [
+  {
+    host: 'mom.93.fyi',
+    href: 'https://mom.93.fyi',
+    description:
+      'A small private app I built for my mother, who is going through a bed bug remediation plan. She uses it daily to track loads, follow steps, and text questions she has about the plan to a number that replies with answers.',
+    cta: 'Open the app',
+    legal: [
+      { name: 'Privacy', href: 'https://mom.93.fyi/privacy' },
+      { name: 'SMS terms', href: 'https://mom.93.fyi/sms-terms' },
+    ],
+  },
+  {
+    host: 'bedbug.93.fyi',
+    href: 'https://bedbug.93.fyi',
+    description:
+      'Webhook + answer endpoint backing the SMS feature on mom.93.fyi. Receives texts, looks up the right step in the remediation plan, and replies.',
+  },
+  {
+    host: 'house.93.fyi',
+    href: 'https://house.93.fyi',
+    description:
+      'Shared household tracker — chores, recurring tasks, and the running list of what needs doing this week.',
+  },
+];
+
 const SOCIAL_LINKS = [
   { name: 'GitHub', href: 'https://github.com/karlmarx', icon: 'github' },
   { name: 'GitLab', href: 'https://gitlab.com/karlmarx2', icon: 'gitlab' },
@@ -36,6 +62,7 @@ export default async function Home() {
 
   return (
     <ClientShell
+      projects={PROJECTS}
       publicLinks={PUBLIC_LINKS}
       socialLinks={SOCIAL_LINKS}
       privateLinks={privateLinks}
