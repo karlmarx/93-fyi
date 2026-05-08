@@ -123,6 +123,13 @@ export default function ClientShell({ projects, publicLinks, socialLinks, privat
             <span className="footer-dot" aria-hidden="true" />
             <span>personal hub</span>
           </div>
+          <address className="footer-owner">
+            <span className="footer-owner-name">Karl Marx-Levi</span>
+            <span className="footer-sep" aria-hidden="true"> · </span>
+            <span>3000 NE 6th Ave, Oakland Park, FL 33334</span>
+            <span className="footer-sep" aria-hidden="true"> · </span>
+            <a href="mailto:k@93.fyi">k@93.fyi</a>
+          </address>
         </footer>
       </main>
     </div>
