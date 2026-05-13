@@ -128,13 +128,7 @@ export default function ClientShell({ projects, publicLinks, socialLinks, privat
             <span className="footer-sep" aria-hidden="true"> · </span>
             <span>3000 NE 6th Ave, Oakland Park, FL 33334</span>
             <span className="footer-sep" aria-hidden="true"> · </span>
-            <span>(954) 495-7268</span>
-            <span className="footer-sep" aria-hidden="true"> · </span>
-            <span>
-              <span>k</span>
-              <span>@</span>
-              <span>93.fyi</span>
-            </span>
+            <a href="mailto:k@93.fyi">k@93.fyi</a>
           </address>
         </footer>
       </main>
