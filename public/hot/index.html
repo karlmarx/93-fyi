@@ -1,471 +1,255 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hot Workouts — Aesthetic Fitness Gallery</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
-            color: #fff;
-            min-height: 100vh;
-        }
-
-        header {
-            background: rgba(0,0,0,0.8);
-            border-bottom: 3px solid #ff1744;
-            padding: 3rem 2rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #ff1744, #ff6b6b, #ff1744);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #aaa;
-            margin-bottom: 1rem;
-        }
-
-        .stats {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin-top: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .stat-num {
-            font-size: 2rem;
-            color: #ff1744;
-            font-weight: bold;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-            padding: 3rem 2rem;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .frame {
-            background: #1a1a2e;
-            border: 2px solid #333;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .frame:hover {
-            border-color: #ff1744;
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(255, 23, 68, 0.3);
-        }
-
-        .frame-image {
-            width: 100%;
-            aspect-ratio: 9/16;
-            object-fit: cover;
-            background: #000;
-            display: block;
-        }
-
-        .frame-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.9));
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .frame:hover .frame-overlay {
-            opacity: 1;
-        }
-
-        .frame-score {
-            font-size: 1.5rem;
-            color: #ff1744;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .frame-exercises {
-            font-size: 0.9rem;
-            color: #ff9100;
-            margin-bottom: 0.5rem;
-        }
-
-        .frame-intensity {
-            font-size: 0.85rem;
-            color: #aaa;
-        }
-
-        .intensity-high { color: #ff1744; }
-        .intensity-moderate { color: #ff9100; }
-        .intensity-low { color: #ffc107; }
-
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            position: relative;
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .lightbox-image {
-            width: 100%;
-            border-radius: 8px;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: -2rem;
-            right: 0;
-            font-size: 3rem;
-            color: #fff;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .lightbox-info {
-            background: #1a1a2e;
-            padding: 1.5rem;
-            margin-top: 1rem;
-            border-radius: 8px;
-            border: 1px solid #333;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
-            border-top: 1px solid #333;
-            margin-top: 3rem;
-        }
-
-        a {
-            color: #ff1744;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>🔥 AESTHETIC FITNESS</h1>
-        <p class="subtitle">Premium Workout Photography Gallery</p>
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-num">24</span>
-                <span>Peak Frames</span>
-            </div>
-            <div class="stat">
-                <span class="stat-num">9</span>
-                <span>Sessions</span>
-            </div>
-        </div>
-    </header>
-
-    <div class="gallery" id="gallery">
-        
-        <div class="frame" onclick="openLightbox('images/ad0f5548ffe72d5109c99da151bd2d1a0d1e86139e77f680edbc31ea7eb733bf_frame002.jpg', ["abdominal crunch"], 75, 'moderate')">
-            <img class="frame-image" src="images/ad0f5548ffe72d5109c99da151bd2d1a0d1e86139e77f680edbc31ea7eb733bf_frame002.jpg" alt="abdominal crunch">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">abdominal crunch</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame000.jpg', ["bench press"], 75, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame000.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame002.jpg', ["lying barbell bench press"], 75, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame002.jpg" alt="lying barbell bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">lying barbell bench press</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame004.jpg', ["bench press"], 75, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame004.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame005.jpg', ["bench press"], 75, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame005.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame007.jpg', ["bench press"], 75, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame007.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame001.jpg', ["bench press"], 75, 'high')">
-            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame001.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-high">high</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame002.jpg', ["bench press"], 75, 'moderate')">
-            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame002.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/d0040bea8dec67c2be131268ce28db6339e583b2520e354981e7d503f1b58e36_frame000.jpg', ["bench press"], 75, 'unknown')">
-            <img class="frame-image" src="images/d0040bea8dec67c2be131268ce28db6339e583b2520e354981e7d503f1b58e36_frame000.jpg" alt="bench press">
-            <div class="frame-overlay">
-                <div class="frame-score">75/100</div>
-                <div class="frame-exercises">bench press</div>
-                <div class="frame-intensity intensity-unknown">unknown</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame012.jpg', ["sit-up"], 65, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame012.jpg" alt="sit-up">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">sit-up</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame035.jpg', ["plank"], 65, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame035.jpg" alt="plank">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">plank</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame036.jpg', ["sit-up"], 65, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame036.jpg" alt="sit-up">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">sit-up</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame041.jpg', ["sit-up"], 65, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame041.jpg" alt="sit-up">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">sit-up</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame051.jpg', ["stretching"], 65, 'low')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame051.jpg" alt="stretching">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">stretching</div>
-                <div class="frame-intensity intensity-low">low</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame052.jpg', ["core exercise"], 65, 'moderate')">
-            <img class="frame-image" src="images/c8a77748bc08bc59e4c34bdaab8246245f0073818d64a1865fcb79cb070534c8_frame052.jpg" alt="core exercise">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">core exercise</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/eadc9b5150b50775f527f695003dfdbc598c5622a311a9e676f37ba855bc4a6a_frame013.jpg', ["hanging leg raise"], 65, 'high')">
-            <img class="frame-image" src="images/eadc9b5150b50775f527f695003dfdbc598c5622a311a9e676f37ba855bc4a6a_frame013.jpg" alt="hanging leg raise">
-            <div class="frame-overlay">
-                <div class="frame-score">65/100</div>
-                <div class="frame-exercises">hanging leg raise</div>
-                <div class="frame-intensity intensity-high">high</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/b81c74adff11d767d1163094b23136239541a3c29d655bfbf7da0c1a24d47103_frame000.jpg', ["chest stretch"], 60, 'low')">
-            <img class="frame-image" src="images/b81c74adff11d767d1163094b23136239541a3c29d655bfbf7da0c1a24d47103_frame000.jpg" alt="chest stretch">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">chest stretch</div>
-                <div class="frame-intensity intensity-low">low</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame003.jpg', ["lying chest stretch"], 60, 'low')">
-            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame003.jpg" alt="lying chest stretch">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">lying chest stretch</div>
-                <div class="frame-intensity intensity-low">low</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame005.jpg', ["barbell stretch"], 60, 'low')">
-            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame005.jpg" alt="barbell stretch">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">barbell stretch</div>
-                <div class="frame-intensity intensity-low">low</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame008.jpg', ["lying barbell stretch"], 60, 'low')">
-            <img class="frame-image" src="images/c96db91ca066dd9cf2473537865f5279db188532160d81499cd35df476d33897_frame008.jpg" alt="lying barbell stretch">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">lying barbell stretch</div>
-                <div class="frame-intensity intensity-low">low</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame000.jpg', ["leg extension"], 60, 'unknown')">
-            <img class="frame-image" src="images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame000.jpg" alt="leg extension">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">leg extension</div>
-                <div class="frame-intensity intensity-unknown">unknown</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame001.jpg', ["seated elliptical"], 60, 'moderate')">
-            <img class="frame-image" src="images/d7ee0fb00cc682ffe61d55b27e09cda4a2c288f44a1076f5f62b4960239e9a0e_frame001.jpg" alt="seated elliptical">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">seated elliptical</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/d925990c87cd023e41528f4ae2454d2037c91566d7899e0000cfb03109d14615_frame002.jpg', ["indoor cycling"], 60, 'moderate')">
-            <img class="frame-image" src="images/d925990c87cd023e41528f4ae2454d2037c91566d7899e0000cfb03109d14615_frame002.jpg" alt="indoor cycling">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">indoor cycling</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-        <div class="frame" onclick="openLightbox('images/dff6ad4a9e35bdbd0976a7ed1db1842892702917e99cfb741be1a1261cf7a30c_frame002.jpg', ["sit-up"], 60, 'moderate')">
-            <img class="frame-image" src="images/dff6ad4a9e35bdbd0976a7ed1db1842892702917e99cfb741be1a1261cf7a30c_frame002.jpg" alt="sit-up">
-            <div class="frame-overlay">
-                <div class="frame-score">60/100</div>
-                <div class="frame-exercises">sit-up</div>
-                <div class="frame-intensity intensity-moderate">moderate</div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-content">
-            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-            <img class="lightbox-image" id="lightboxImage" alt="Full size">
-            <div class="lightbox-info">
-                <div id="lightboxInfo"></div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>Built with ML vision analysis • hot.93.fyi</p>
-    </footer>
-
-    <script>
-        function openLightbox(image, exercises, score, intensity) {
-            document.getElementById('lightbox').classList.add('active');
-            document.getElementById('lightboxImage').src = image;
-            document.getElementById('lightboxInfo').innerHTML = `
-                <p><strong>Score:</strong> <span style="color: #ff1744;">${score}/100</span></p>
-                <p><strong>Exercises:</strong> ${exercises.join(', ')}</p>
-                <p><strong>Intensity:</strong> <span class="intensity-${intensity.toLowerCase()}">${intensity}</span></p>
-            `;
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
-
-        document.getElementById('lightbox').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('lightbox')) closeLightbox();
-        });
-    </script>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>hot.93.fyi · top-3 model comparison</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:#0a0a0a;color:#e8e8e8;margin:0;padding:1rem;line-height:1.5}
+h1{margin:0 0 0.25rem 0;font-size:1.5rem;color:#fff}
+h2{color:#bbb;border-bottom:1px solid #333;padding-bottom:0.5rem;margin-top:2.5rem}
+.preamble{color:#888;font-size:13px;margin-bottom:2rem;max-width:780px}
+.preamble strong{color:#ccc}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:2rem}
+@media (max-width:760px){.row{grid-template-columns:1fr}}
+.col h3{margin:0 0 0.5rem 0;font-size:0.9rem;color:#7eb87e;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+.pick{background:#161616;border:1px solid #222;border-radius:8px;padding:0.5rem;margin-bottom:0.75rem}
+.pick img{width:100%;border-radius:4px;display:block}
+.pick .score{display:inline-block;background:#2a3a2a;color:#7eb87e;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:12px;margin-bottom:0.4rem}
+.pick .notes{font-size:12px;color:#bbb;margin-top:0.4rem}
+.pick .extra{font-size:11px;color:#888;margin-top:0.25rem}
+.pick .extras-bubble{font-size:11px;color:#9ec78a;margin-top:0.4rem;border-top:1px dashed #2a3a2a;padding-top:0.4rem}
+.no-pick{color:#555;font-style:italic;font-size:12px;padding:1rem;background:#0f0f0f;border-radius:4px}
+.footer{color:#666;font-size:11px;margin-top:3rem;border-top:1px solid #222;padding-top:1rem}
+</style>
+</head><body>
+<h1>top-3 model comparison</h1>
+<p class="preamble">
+  Three vision-language models scored a 316-frame gym corpus on form, aesthetic, and background-admirer presence.   Each picked its own top 3 per task &mdash; same corpus, independent scoring.   <strong>gemma-4-e2b-it-4bit</strong> (2B MoE, smallest) edged the top spot on a composite of parse-rate,   score variance, exercise vocabulary, and admirer-conservatism.   <strong>Qwen3.5-9B</strong> and <strong>Qwen3.5-27B</strong> follow with crisper gym vocabulary and reliable JSON.
+</p>
+  <div class="row" style="font-weight:600;color:#fff;border-bottom:1px solid #333;padding-bottom:0.5rem">
+    <div>gemma-4-e2b-it-4bit</div>
+    <div>Qwen3.5-9B-MLX-4bit</div>
+    <div>Qwen3.5-27B-4bit</div>
+  </div>
+<h2>🏋️ Form / exercise picks</h2>
+<div class="row">
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_aed090d5_i001.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 8</span>
+  <div class="notes">The subject is actively engaged in a pulling motion with a clear focus on the back muscle.</div>
+  <div class="extra">exercise_name: Barbell Row (Partial)</div>
+  <div class="extras-bubble">💭 The frame focuses on the setup for a heavy pull, showing the connection between the bar and the body.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_aed090d5_i002.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">The arm is in a deep stretch or controlled lowering phase of a pulling movement.</div>
+  <div class="extra">exercise_name: Lat Pulldown/Row (Partial)</div>
+  <div class="extras-bubble">💭 The subject is wearing a dark tank top and a blue headband. The lighting is bright, highlighting the muscle tone.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_aed090d5_i003.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 8</span>
+  <div class="notes">The subject is holding a plank position with visible tension in the core.</div>
+  <div class="extra">exercise_name: Plank/Core Exercise</div>
+  <div class="extras-bubble">💭 The subject is performing an exercise on a padded surface, using an implement that appears to be a strap or handle for the arms.</div>
+</div>
+</div>
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_d0040bea_i000.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 9</span>
+  <div class="notes">The lifter is at the top of the concentric phase of the bench press, holding the barbell with arms fully extended and elbows locked, demonstrating a strong peak position.</div>
+  <div class="extra">exercise_name: Bench Press</div>
+  <div class="extras-bubble">💭 The gym is equipped with Rogue brand power racks and bumper plates. The lifter is wearing a blue and black tank top and pink shorts. A pair of rowing machines is visible on the floor in the foreground.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_b81c74ad_i003.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 9</span>
+  <div class="notes">The subject is performing a weighted dip with excellent form, maintaining a straight line from head to heels and keeping the torso rigid.</div>
+  <div class="extra">exercise_name: Weighted Dips</div>
+  <div class="extras-bubble">💭 The subject is wearing a grey t-shirt and shorts. The camera is positioned low to the ground, looking up at the subject, which emphasizes the length of the body and the equipment. The gym has a modern, industrial look with black walls and yellow accents.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_eadc9b51_i000.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 9</span>
+  <div class="notes">The subject is performing a pull-up with a strong, controlled grip and visible muscle engagement.</div>
+  <div class="extra">exercise_name: Pull-up</div>
+  <div class="extras-bubble">💭 The subject is wearing a blue tank top and white shorts, with a tattoo on their left arm. The gym environment includes various exercise equipment and a mirror reflecting the scene. The camera angle is from below, emphasizing the subject's upper body and grip strength.</div>
+</div>
+</div>
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_845ce7b4_i013.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 9</span>
+  <div class="notes">The subject is holding a stable headstand with hands placed correctly for support and legs extended vertically.</div>
+  <div class="extra">exercise_name: Headstand</div>
+  <div class="extras-bubble">💭 The subject is wearing a light blue watch on their left wrist and has earbuds in. The camera is placed on the floor looking up, creating a dramatic perspective.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_a52fb1a2_i000.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">The subject is in the peak contraction phase of a rear delt fly, maintaining a stable chest position on the bench with arms extended.</div>
+  <div class="extra">exercise_name: Chest Supported Rear Delt Fly</div>
+  <div class="extras-bubble">💭 The subject is wearing a neon green cap and a white tank top; the shot is taken from a very low angle, likely with the camera placed on the floor.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_a52fb1a2_i001.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 8</span>
+  <div class="notes">The subject is in the peak contraction phase of a fly movement with good chest extension, though the low camera angle obscures the full range of motion.</div>
+  <div class="extra">exercise_name: Incline Dumbbell Fly</div>
+  <div class="extras-bubble">💭 The shot is taken from a very low angle, likely with the camera placed on the floor, which creates a dramatic, heroic perspective of the lifter.</div>
+</div>
+</div>
+</div>
+<h2>💪 Aesthetic / muscle picks</h2>
+<div class="row">
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_c0b94609_i003.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 8</span>
+  <div class="notes">The subject displays well-defined upper body musculature.</div>
+  <div class="extra">muscles_visible: Arms, Shoulders</div>
+  <div class="extras-bubble">💭 The subject is wearing a bright blue tank top and light pink shorts. The lighting is bright, typical of a gym environment.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_c0b94609_i004.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">The lighting highlights the physique well, showing definition in the upper body.</div>
+  <div class="extra">muscles_visible: Arms, Shoulders</div>
+  <div class="extras-bubble">💭 The subject is wearing a blue tank top and pink shorts. The frame is taken from a low angle, looking up at the subject.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_f7ece2dd_i001.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 8</span>
+  <div class="notes">Good lighting highlights the physique and muscle definition.</div>
+  <div class="extra">muscles_visible: Back, Arms</div>
+  <div class="extras-bubble">💭 The subject is wearing a bright green/blue cap and a black tank top, performing a back exercise in a gym setting.</div>
+</div>
+</div>
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_ba7b902e_i000.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 8</span>
+  <div class="notes">The subject has a very muscular and defined physique, with prominent triceps and forearm muscles clearly visible due to the contraction. The lighting highlights the muscle definition well, and the subject's physique is quite impressive.</div>
+  <div class="extra">muscles_visible: triceps, forearms, chest</div>
+  <div class="extras-bubble">💭 The subject is wearing a blue tank top with a 'DC' logo, pink shorts, and a black watch. There are tattoos on the subject's hands and forearms. The equipment being used is a cable machine with a rope attachment. The camera angle is focused on the subject's upper body and arms, providing a clear view of the exercise being performed.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_f7ece2dd_i001.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">The subject's back is well-defined, with visible muscle separation in the traps and lats, enhanced by the lighting and the open-back tank top.</div>
+  <div class="extra">muscles_visible: traps, lats, rear delts, biceps, forearms</div>
+  <div class="extras-bubble">💭 The subject is wearing a neon green and blue cap, a black open-back tank top, and grey shorts with white stripes. The gym environment is well-lit with blue ambient lighting, and there are various pieces of gym equipment visible in the background.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_f7ece2dd_i002.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 8</span>
+  <div class="notes">The lighting highlights the definition in the subject's back and arms, particularly the triceps and lat muscles, creating a strong visual appeal.</div>
+  <div class="extra">muscles_visible: triceps, lats, deltoids, abs</div>
+  <div class="extras-bubble">💭 The subject is wearing a black tank top with a large cutout in the back, grey shorts with white stripes, and a neon green and blue baseball cap. The gym environment is visible in the background with various equipment and blue lighting.</div>
+</div>
+</div>
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_eadc9b51_i020.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 9</span>
+  <div class="notes">The low-angle shot effectively highlights the subject's muscular definition, particularly the lats and arms, creating a visually impressive and powerful composition.</div>
+  <div class="extra">muscles_visible: lats, biceps, forearms, shoulders</div>
+  <div class="extras-bubble">💭 The image is flipped upside down, likely due to the camera being mounted on the ceiling or a high rack looking down.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_ba7b902e_i000.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">The close-up angle effectively highlights the definition in the triceps and forearms, with good lighting on the upper body.</div>
+  <div class="extra">muscles_visible: triceps, forearms, chest, shoulders</div>
+  <div class="extras-bubble">💭 The subject is wearing a blue tank top with a 'na' logo, pink shorts, a black smartwatch, and a white wrist strap. Visible tattoos include 'MAD' on the knuckles and a dark patch on the forearm.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_f7ece2dd_i001.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 8</span>
+  <div class="notes">The lighting highlights the definition in the back and arms, and the open-back tank top provides a clear view of the muscle striations.</div>
+  <div class="extra">muscles_visible: lats, traps, rear delts, forearms</div>
+  <div class="extras-bubble">💭 The subject is wearing a bright green and blue mesh cap and grey shorts with white stripes. The gym environment features blue ambient lighting in the background.</div>
+</div>
+</div>
+</div>
+<h2>👀 Background-admirer picks</h2>
+<div class="row">
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_bcb4d10d_i008.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 8</span>
+  <div class="notes">Two individuals are visible in the background, seemingly observing the main subject.</div>
+  <div class="extra">others_count: 2</div>
+  <div class="extras-bubble">💭 The lighting is very bright from above, creating strong highlights on the subject's arms and torso.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_eadc9b51_i000.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 5</span>
+  <div class="notes">Other individuals are visible in the background, some appearing to observe the area.</div>
+  <div class="extra">others_count: 3</div>
+  <div class="extras-bubble">💭 The frame is shot from a high angle looking down, emphasizing the upper body and arms.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/gemma-4-e2b-it-4bit_eadc9b51_i002.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 5</span>
+  <div class="notes">Other individuals are visible in the background, some appear to be observing.</div>
+  <div class="extra">others_count: 3</div>
+  <div class="extras-bubble">💭 The shot is taken from a high, overhead angle, emphasizing the full range of motion.</div>
+</div>
+</div>
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_e8c3f696_i000.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 8</span>
+  <div class="notes">A woman in the background is looking directly at the camera/subject, suggesting she is paying attention to them.</div>
+  <div class="extra">others_count: 1</div>
+  <div class="extras-bubble">💭 The gym environment is well-lit with overhead lights, and there are other people working out in the background. The subject is wearing a black shirt, and the camera angle is very close to the arm, making it difficult to see the full context of the workout.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_ad0f5548_i006.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">A person in the background is clearly looking toward the camera/subject, suggesting they are paying attention.</div>
+  <div class="extra">others_count: 1</div>
+  <div class="extras-bubble">💭 The image appears to be a close-up, possibly accidental, with a hand blocking most of the view. The background person is wearing a bright green and black cap, and the setting seems to be indoors, likely a gym or similar environment.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-9B-MLX-4bit_b81c74ad_i000.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 8</span>
+  <div class="notes">A man in the background is clearly looking towards the subject, indicating interest or supervision.</div>
+  <div class="extra">others_count: 2</div>
+  <div class="extras-bubble">💭 The subject is wearing a colorful cap and a white tank top. The gym environment includes various pieces of equipment and a large logo on the wall.</div>
+</div>
+</div>
+<div class="col">
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_ad0f5548_i006.gif" alt="#1 pick"/>
+  <span class="score">#1 · score 8</span>
+  <div class="notes">A person in the background wearing a neon hat is clearly looking directly at the camera/subject.</div>
+  <div class="extra">others_count: 1</div>
+  <div class="extras-bubble">💭 The image is a 'selfie' style shot where the subject's hand is too close to the lens, creating a distorted, out-of-focus foreground. The background figure is wearing a black cap with a neon green brim.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_c8a77748_i032.gif" alt="#2 pick"/>
+  <span class="score">#2 · score 8</span>
+  <div class="notes">A man in the background is clearly looking directly at the main subject, appearing to watch the lift.</div>
+  <div class="extra">others_count: 1</div>
+  <div class="extras-bubble">💭 The shot is taken from a very low angle, likely on the floor, which emphasizes the equipment and the lifter's effort. The lifter is wearing a colorful 'Sprints' cap and a blue tank top.</div>
+</div>
+<div class="pick">
+  <img src="compare-assets/Qwen3.5-27B-4bit_e8c3f696_i000.gif" alt="#3 pick"/>
+  <span class="score">#3 · score 6</span>
+  <div class="notes">A woman in the background is looking directly at the camera/subject, while others are focused on their own workouts.</div>
+  <div class="extra">others_count: 5</div>
+  <div class="extras-bubble">💭 The shot is taken from a very low, awkward angle, likely from a phone resting on a bench, resulting in a distorted perspective that obscures the subject's face and body.</div>
+</div>
+</div>
+</div>
+<div class="footer">
+  Built from <code>~/.local/share/gym-model-compare-v2/</code> · 
+  experiment harness <code>~/karl-infra/services/gym_model_compare_v2.py</code> · 
+  10 models scored, top 3 by composite quality shown.
+</div>
+</body></html>
