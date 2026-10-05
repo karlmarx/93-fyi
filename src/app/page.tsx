@@ -9,6 +9,7 @@ const PUBLIC_LINKS = [
   { name: 'Thumb-Fit', href: 'https://thumbfit.93.fyi' },
   { name: 'Thumb Yoga', href: 'https://thumbyoga.93.fyi' },
   { name: 'Pickleball Drills', href: 'https://pwbpb.93.fyi' },
+  { name: 'Drill', href: 'https://drill.93.fyi' },
   { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi' },
   { name: 'Layover', href: 'https://layover.93.fyi' },
   { name: 'Suspect', href: 'https://suspect.93.fyi' },
