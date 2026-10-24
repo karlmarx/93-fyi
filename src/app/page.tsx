@@ -5,7 +5,7 @@ const APP_GROUPS = [
   {
     label: 'Pickleball',
     apps: [
-      { name: 'Drills', href: 'https://pwbpb.93.fyi', emoji: '🏓', desc: 'Six no-footwork drills for the kitchen line' },
+      { name: 'Drills', href: 'https://pwbpb.93.fyi', emoji: '🏓', desc: 'No-footwork kitchen-line drills, for playing around an injury' },
       { name: 'Score Parity', href: 'https://score.93.fyi', emoji: '🔢', desc: 'Odd or even: where to stand in doubles' },
       { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi', emoji: '🟡', desc: 'Ball proposal for LT Pro 48' },
     ],
@@ -23,7 +23,7 @@ const APP_GROUPS = [
     label: 'Play & travel',
     apps: [
       { name: 'Suspect', href: 'https://suspect.93.fyi', emoji: '🕵️', desc: 'One word, one bluff. A party game' },
-      { name: 'Layover', href: 'https://layover.93.fyi', emoji: '✈️', desc: 'Will you make that tight connection?' },
+      { name: 'Layover', href: 'https://layover.93.fyi', emoji: '✈️', desc: 'Made for my mom: will she make that tight connection?' },
     ],
   },
   {
@@ -31,7 +31,6 @@ const APP_GROUPS = [
     apps: [
       { name: 'Status', href: 'https://status.93.fyi', emoji: '🟢', desc: 'Service health and incidents' },
       { name: 'Automation', href: 'https://auto.93.fyi', emoji: '⚙️', desc: 'Automation dashboard and gear picks' },
-      { name: 'Now', href: 'https://now.93.fyi', emoji: '📍', desc: 'What I am up to (under construction)' },
     ],
   },
 ];
