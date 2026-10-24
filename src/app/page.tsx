@@ -3,6 +3,7 @@ import ClientShell from './ClientShell';
 
 const PUBLIC_LINKS = [
   { name: 'Status', href: 'https://status.93.fyi' },
+  { name: 'Automation', href: 'https://auto.93.fyi' },
   { name: 'Now', href: 'https://now.93.fyi' },
   { name: 'NWB Workout', href: 'https://nfit.93.fyi' },
   { name: 'NWB Yoga', href: 'https://nyoga.93.fyi' },
