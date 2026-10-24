@@ -5,7 +5,7 @@ const APP_GROUPS = [
   {
     label: 'Pickleball',
     apps: [
-      { name: 'Drills', href: 'https://pwbpb.93.fyi', emoji: '🏓', desc: 'No-footwork kitchen-line drills, for playing around an injury' },
+      { name: 'Injury-Specific Drills', href: 'https://pwbpb.93.fyi', emoji: '🏓', desc: 'No-footwork drills at the kitchen line' },
       { name: 'Score Parity', href: 'https://score.93.fyi', emoji: '🔢', desc: 'Odd or even: where to stand in doubles' },
       { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi', emoji: '🟡', desc: 'Ball proposal for LT Pro 48' },
     ],
