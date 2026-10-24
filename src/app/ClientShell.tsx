@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+
 interface Link {
   name: string;
   href: string;
@@ -5,6 +9,16 @@ interface Link {
 
 interface SocialLink extends Link {
   icon: string;
+}
+
+interface App extends Link {
+  emoji: string;
+  desc: string;
+}
+
+interface AppGroup {
+  label: string;
+  apps: App[];
 }
 
 interface Project {
@@ -17,7 +31,7 @@ interface Project {
 
 interface Props {
   projects: Project[];
-  publicLinks: Link[];
+  appGroups: AppGroup[];
   socialLinks: SocialLink[];
   privateLinks: Link[];
   isAuthenticated: boolean;
@@ -48,7 +62,38 @@ function SocialIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function ClientShell({ projects, publicLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
+function matches(app: App, q: string) {
+  const hay = `${app.name} ${app.desc} ${app.href}`.toLowerCase();
+  return q.split(/\s+/).every((word) => hay.includes(word));
+}
+
+export default function ClientShell({ projects, appGroups, socialLinks, privateLinks, isAuthenticated }: Props) {
+  const [query, setQuery] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const q = query.trim().toLowerCase();
+
+  const groups = useMemo(
+    () =>
+      appGroups
+        .map((g) => ({ ...g, apps: q ? g.apps.filter((a) => matches(a, q)) : g.apps }))
+        .filter((g) => g.apps.length > 0),
+    [appGroups, q],
+  );
+  const firstMatch = q ? groups[0]?.apps[0] : undefined;
+
+  // "/" jumps to the search box from anywhere on the page.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(target.tagName)) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   return (
     <div className="page">
       <main className="container">
@@ -62,41 +107,81 @@ export default function ClientShell({ projects, publicLinks, socialLinks, privat
           )}
         </div>
 
-        <div className="rule" />
+        <p className="tagline">Small apps I made. Pick one.</p>
 
-        <h2 className="section-label">Projects</h2>
-        <div className="projects">
-          {projects.map((p) => (
-            <article key={p.host} className="project">
-              <div className="project-host">{p.host}</div>
-              <p className="project-desc">{p.description}</p>
-              <div className="project-actions">
-                <a className="project-cta" href={p.href}>
-                  {p.cta ?? 'Visit'} <span aria-hidden="true">→</span>
-                </a>
-                {p.legal && p.legal.length > 0 && (
-                  <span className="project-legal">
-                    {p.legal.map((l, i) => (
-                      <span key={l.href}>
-                        {i > 0 && <span className="project-legal-sep" aria-hidden="true"> · </span>}
-                        <a href={l.href}>{l.name}</a>
-                      </span>
-                    ))}
-                  </span>
-                )}
-              </div>
-            </article>
-          ))}
+        <div className="search">
+          <input
+            ref={inputRef}
+            type="search"
+            className="search-input"
+            placeholder="Find an app"
+            aria-label="Find an app"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && firstMatch) window.location.href = firstMatch.href;
+              if (e.key === 'Escape') setQuery('');
+            }}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <kbd className="search-hint" aria-hidden="true">{firstMatch ? '↵ open' : '/'}</kbd>
         </div>
 
-        <div className="rule" />
+        {groups.length === 0 && <p className="empty">No app matches &ldquo;{query}&rdquo;.</p>}
 
-        <h2 className="section-label">Links</h2>
-        <nav className="links">
-          {publicLinks.map((link) => (
-            <a key={link.href} href={link.href}>{link.name}</a>
-          ))}
-        </nav>
+        {groups.map((group) => (
+          <section key={group.label} className="app-group">
+            <h2 className="section-label">{group.label}</h2>
+            <div className="app-grid">
+              {group.apps.map((app) => (
+                <a
+                  key={app.href}
+                  href={app.href}
+                  className={`app-tile${app === firstMatch ? ' is-first' : ''}`}
+                >
+                  <span className="app-emoji" aria-hidden="true">{app.emoji}</span>
+                  <span className="app-text">
+                    <span className="app-name">{app.name}</span>
+                    <span className="app-desc">{app.desc}</span>
+                    <span className="app-host">{app.href.replace('https://', '')}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        {!q && (
+          <>
+            <div className="rule" />
+
+            <h2 className="section-label">Also here</h2>
+            <div className="projects">
+              {projects.map((p) => (
+                <article key={p.host} className="project">
+                  <div className="project-host">{p.host}</div>
+                  <p className="project-desc">{p.description}</p>
+                  <div className="project-actions">
+                    <a className="project-cta" href={p.href}>
+                      {p.cta ?? 'Visit'} <span aria-hidden="true">→</span>
+                    </a>
+                    {p.legal && p.legal.length > 0 && (
+                      <span className="project-legal">
+                        {p.legal.map((l, i) => (
+                          <span key={l.href}>
+                            {i > 0 && <span className="project-legal-sep" aria-hidden="true"> · </span>}
+                            <a href={l.href}>{l.name}</a>
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="social-row">
           {socialLinks.map((link) => (

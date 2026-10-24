@@ -1,19 +1,39 @@
 import { headers } from 'next/headers';
 import ClientShell from './ClientShell';
 
-const PUBLIC_LINKS = [
-  { name: 'Status', href: 'https://status.93.fyi' },
-  { name: 'Automation', href: 'https://auto.93.fyi' },
-  { name: 'Now', href: 'https://now.93.fyi' },
-  { name: 'NWB Workout', href: 'https://nfit.93.fyi' },
-  { name: 'NWB Yoga', href: 'https://nyoga.93.fyi' },
-  { name: 'Thumb-Fit', href: 'https://thumbfit.93.fyi' },
-  { name: 'Thumb Yoga', href: 'https://thumbyoga.93.fyi' },
-  { name: 'Pickleball Drills', href: 'https://pwbpb.93.fyi' },
-  { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi' },
-  { name: 'Score Parity', href: 'https://score.93.fyi' },
-  { name: 'Layover', href: 'https://layover.93.fyi' },
-  { name: 'Suspect', href: 'https://suspect.93.fyi' },
+const APP_GROUPS = [
+  {
+    label: 'Pickleball',
+    apps: [
+      { name: 'Drills', href: 'https://pwbpb.93.fyi', emoji: '🏓', desc: 'Six no-footwork drills for the kitchen line' },
+      { name: 'Score Parity', href: 'https://score.93.fyi', emoji: '🔢', desc: 'Odd or even: where to stand in doubles' },
+      { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi', emoji: '🟡', desc: 'Ball proposal for LT Pro 48' },
+    ],
+  },
+  {
+    label: 'Training',
+    apps: [
+      { name: 'NWB Workout', href: 'https://nfit.93.fyi', emoji: '🦵', desc: 'Non-weight-bearing push/pull/legs plan' },
+      { name: 'NWB Yoga', href: 'https://nyoga.93.fyi', emoji: '🧘', desc: 'Yoga that keeps weight off the leg' },
+      { name: 'Thumb-Fit', href: 'https://thumbfit.93.fyi', emoji: '💪', desc: 'Six-week workout plan, thumb-safe' },
+      { name: 'Thumb Yoga', href: 'https://thumbyoga.93.fyi', emoji: '🙌', desc: '50-minute forearm and strap flow' },
+    ],
+  },
+  {
+    label: 'Play & travel',
+    apps: [
+      { name: 'Suspect', href: 'https://suspect.93.fyi', emoji: '🕵️', desc: 'One word, one bluff. A party game' },
+      { name: 'Layover', href: 'https://layover.93.fyi', emoji: '✈️', desc: 'Will you make that tight connection?' },
+    ],
+  },
+  {
+    label: 'Under the hood',
+    apps: [
+      { name: 'Status', href: 'https://status.93.fyi', emoji: '🟢', desc: 'Service health and incidents' },
+      { name: 'Automation', href: 'https://auto.93.fyi', emoji: '⚙️', desc: 'Automation dashboard and gear picks' },
+      { name: 'Now', href: 'https://now.93.fyi', emoji: '📍', desc: 'What I am up to (under construction)' },
+    ],
+  },
 ];
 
 const PROJECTS = [
@@ -71,7 +91,7 @@ export default async function Home() {
   return (
     <ClientShell
       projects={PROJECTS}
-      publicLinks={PUBLIC_LINKS}
+      appGroups={APP_GROUPS}
       socialLinks={SOCIAL_LINKS}
       privateLinks={privateLinks}
       isAuthenticated={isAuthenticated}
