@@ -1,18 +1,26 @@
 import { headers } from 'next/headers';
 import ClientShell from './ClientShell';
 
-const PUBLIC_LINKS = [
-  { name: 'Status', href: 'https://status.93.fyi' },
-  { name: 'Now', href: 'https://now.93.fyi' },
+// Big tiles: the sites other people actually use.
+const FEATURED = [
+  { name: 'Score Parity', href: 'https://score.93.fyi', emoji: '🔢', desc: 'Odd or even: where to stand in doubles' },
+  { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi', emoji: '🟡', desc: 'Ball proposal for LT Pro 48' },
+  { name: 'Drill Partner', href: 'https://drill.93.fyi', emoji: '🎯', desc: 'Drill picker and scoreboard for two players' },
+  { name: 'Volley Parton', href: 'https://volleyparton.org', emoji: '🏳️‍🌈', desc: 'Our Pride Sports USA pickleball team' },
+  { name: 'Infra', href: 'https://github.com/karlmarx/karl-infra', emoji: '🗺️', desc: 'Map of all my apps, automation and hosting' },
+];
+
+// Plain links under the tiles: public, but mostly useful to me.
+const MORE_LINKS = [
+  { name: 'Injury-Specific Drills', href: 'https://pwbpb.93.fyi' },
   { name: 'NWB Workout', href: 'https://nfit.93.fyi' },
   { name: 'NWB Yoga', href: 'https://nyoga.93.fyi' },
   { name: 'Thumb-Fit', href: 'https://thumbfit.93.fyi' },
   { name: 'Thumb Yoga', href: 'https://thumbyoga.93.fyi' },
-  { name: 'Pickleball Drills', href: 'https://pwbpb.93.fyi' },
-  { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi' },
-  { name: 'Score Parity', href: 'https://score.93.fyi' },
-  { name: 'Layover', href: 'https://layover.93.fyi' },
   { name: 'Suspect', href: 'https://suspect.93.fyi' },
+  { name: 'Layover (for Mom)', href: 'https://layover.93.fyi' },
+  { name: 'Status', href: 'https://status.93.fyi' },
+  { name: 'Automation', href: 'https://auto.93.fyi' },
 ];
 
 const PROJECTS = [
@@ -49,6 +57,14 @@ const SOCIAL_LINKS = [
 
 const PRIVATE_LINKS: Record<string, { name: string; href: string }[]> = {
   'karlmarx9193@gmail.com': [
+    { name: 'Where', href: 'https://where.93.fyi' },
+    { name: 'Go (directions)', href: 'https://go.93.fyi' },
+    { name: 'Ortho', href: 'https://ortho.93.fyi' },
+    { name: 'Command', href: 'https://command.93.fyi' },
+    { name: 'Scout', href: 'https://scout.93.fyi' },
+    { name: 'Voice compare', href: 'https://fake.93.fyi' },
+    { name: 'Contact', href: 'https://contact.93.fyi' },
+    { name: 'ID', href: 'https://id.93.fyi' },
     { name: 'Hot', href: 'https://hot.93.fyi' },
     { name: 'Home Assistant', href: 'https://ha.93.fyi' },
     { name: 'TrickAdvisor', href: 'https://ta.93.fyi' },
@@ -70,7 +86,8 @@ export default async function Home() {
   return (
     <ClientShell
       projects={PROJECTS}
-      publicLinks={PUBLIC_LINKS}
+      featured={FEATURED}
+      moreLinks={MORE_LINKS}
       socialLinks={SOCIAL_LINKS}
       privateLinks={privateLinks}
       isAuthenticated={isAuthenticated}

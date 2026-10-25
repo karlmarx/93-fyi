@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+
 interface Link {
   name: string;
   href: string;
@@ -5,6 +9,11 @@ interface Link {
 
 interface SocialLink extends Link {
   icon: string;
+}
+
+interface App extends Link {
+  emoji: string;
+  desc: string;
 }
 
 interface Project {
@@ -17,7 +26,8 @@ interface Project {
 
 interface Props {
   projects: Project[];
-  publicLinks: Link[];
+  featured: App[];
+  moreLinks: Link[];
   socialLinks: SocialLink[];
   privateLinks: Link[];
   isAuthenticated: boolean;
@@ -48,7 +58,36 @@ function SocialIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function ClientShell({ projects, publicLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
+function matches(link: Link & { desc?: string }, q: string) {
+  const hay = `${link.name} ${link.desc ?? ''} ${link.href}`.toLowerCase();
+  return q.split(/\s+/).every((word) => hay.includes(word));
+}
+
+export default function ClientShell({ projects, featured, moreLinks, socialLinks, privateLinks, isAuthenticated }: Props) {
+  const [query, setQuery] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const q = query.trim().toLowerCase();
+
+  const { tiles, more, mine } = useMemo(() => {
+    const keep = <T extends Link>(list: T[]) => (q ? list.filter((l) => matches(l, q)) : list);
+    return { tiles: keep(featured), more: keep(moreLinks), mine: keep(privateLinks) };
+  }, [featured, moreLinks, privateLinks, q]);
+  const firstMatch: Link | undefined = q ? tiles[0] ?? more[0] ?? mine[0] : undefined;
+  const nothing = tiles.length + more.length + mine.length === 0;
+
+  // "/" jumps to the search box from anywhere on the page.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(target.tagName)) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   return (
     <div className="page">
       <main className="container">
@@ -62,41 +101,104 @@ export default function ClientShell({ projects, publicLinks, socialLinks, privat
           )}
         </div>
 
-        <div className="rule" />
+        <p className="tagline">Small apps I made. Pick one.</p>
 
-        <h2 className="section-label">Projects</h2>
-        <div className="projects">
-          {projects.map((p) => (
-            <article key={p.host} className="project">
-              <div className="project-host">{p.host}</div>
-              <p className="project-desc">{p.description}</p>
-              <div className="project-actions">
-                <a className="project-cta" href={p.href}>
-                  {p.cta ?? 'Visit'} <span aria-hidden="true">→</span>
-                </a>
-                {p.legal && p.legal.length > 0 && (
-                  <span className="project-legal">
-                    {p.legal.map((l, i) => (
-                      <span key={l.href}>
-                        {i > 0 && <span className="project-legal-sep" aria-hidden="true"> · </span>}
-                        <a href={l.href}>{l.name}</a>
-                      </span>
-                    ))}
-                  </span>
-                )}
-              </div>
-            </article>
-          ))}
+        <div className="search">
+          <input
+            ref={inputRef}
+            type="search"
+            className="search-input"
+            placeholder="Find an app"
+            aria-label="Find an app"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && firstMatch) window.location.href = firstMatch.href;
+              if (e.key === 'Escape') setQuery('');
+            }}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <kbd className="search-hint" aria-hidden="true">{firstMatch ? '↵ open' : '/'}</kbd>
         </div>
 
-        <div className="rule" />
+        {nothing && <p className="empty">No app matches &ldquo;{query}&rdquo;.</p>}
 
-        <h2 className="section-label">Links</h2>
-        <nav className="links">
-          {publicLinks.map((link) => (
-            <a key={link.href} href={link.href}>{link.name}</a>
-          ))}
-        </nav>
+        {tiles.length > 0 && (
+          <div className="app-grid">
+            {tiles.map((app) => (
+              <a
+                key={app.href}
+                href={app.href}
+                className={`app-tile${app === firstMatch ? ' is-first' : ''}`}
+              >
+                <span className="app-emoji" aria-hidden="true">{app.emoji}</span>
+                <span className="app-text">
+                  <span className="app-name">{app.name}</span>
+                  <span className="app-desc">{app.desc}</span>
+                  <span className="app-host">{app.href.replace('https://', '')}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {more.length > 0 && (
+          <>
+            <h2 className="section-label more-label">More</h2>
+            <nav className="links">
+              {more.map((link) => (
+                <a key={link.href} href={link.href} className={link === firstMatch ? 'is-first' : undefined}>
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+          </>
+        )}
+
+        {isAuthenticated && mine.length > 0 && (
+          <>
+            <h2 className="section-label private-label">Private</h2>
+            <nav className="links private">
+              {mine.map((link) => (
+                <a key={link.href} href={link.href} className={link === firstMatch ? 'is-first' : undefined}>
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+          </>
+        )}
+
+        {!q && (
+          <>
+            <div className="rule" />
+
+            <h2 className="section-label">Also here</h2>
+            <div className="projects">
+              {projects.map((p) => (
+                <article key={p.host} className="project">
+                  <div className="project-host">{p.host}</div>
+                  <p className="project-desc">{p.description}</p>
+                  <div className="project-actions">
+                    <a className="project-cta" href={p.href}>
+                      {p.cta ?? 'Visit'} <span aria-hidden="true">→</span>
+                    </a>
+                    {p.legal && p.legal.length > 0 && (
+                      <span className="project-legal">
+                        {p.legal.map((l, i) => (
+                          <span key={l.href}>
+                            {i > 0 && <span className="project-legal-sep" aria-hidden="true"> · </span>}
+                            <a href={l.href}>{l.name}</a>
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="social-row">
           {socialLinks.map((link) => (
@@ -105,18 +207,6 @@ export default function ClientShell({ projects, publicLinks, socialLinks, privat
             </a>
           ))}
         </div>
-
-        {isAuthenticated && privateLinks.length > 0 && (
-          <>
-            <div className="rule" />
-            <h2 className="section-label private-label">Private</h2>
-            <nav className="links private">
-              {privateLinks.map((link) => (
-                <a key={link.href} href={link.href}>{link.name}</a>
-              ))}
-            </nav>
-          </>
-        )}
 
         <footer className="footer">
           <div className="footer-left">
