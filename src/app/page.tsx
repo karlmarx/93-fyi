@@ -3,6 +3,7 @@ import ClientShell from './ClientShell';
 
 // Big tiles: the sites other people actually use.
 const FEATURED = [
+  { name: 'Court Counts', href: 'https://p.93.fyi', emoji: '🏓', desc: 'How busy the Hagen and Wimberly courts are right now' },
   { name: 'Score Parity', href: 'https://score.93.fyi', emoji: '🔢', desc: 'Odd or even: where to stand in doubles' },
   { name: 'LT Pro 48 Balls', href: 'https://balls.93.fyi', emoji: '🟡', desc: 'Ball proposal for LT Pro 48' },
   { name: 'Drill Partner', href: 'https://drill.93.fyi', emoji: '🎯', desc: 'Drill picker and scoreboard for two players' },
@@ -24,6 +25,14 @@ const MORE_LINKS = [
 ];
 
 const PROJECTS = [
+  {
+    host: 'p.93.fyi',
+    href: 'https://p.93.fyi',
+    description:
+      'Self-reported pickleball court counts for Hagen Park and Wimberly Fields. Anyone can text, call or email how many people are playing and waiting; each text report gets one confirmation reply.',
+    cta: 'See the courts',
+    legal: [{ name: 'Texting terms & privacy', href: 'https://p.93.fyi/terms' }],
+  },
   {
     host: 'mom.93.fyi',
     href: 'https://mom.93.fyi',
